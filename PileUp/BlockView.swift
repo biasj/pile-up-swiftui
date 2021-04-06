@@ -18,7 +18,7 @@ struct BlockView: View {
             // mudar só essa imagem?
             if(!block.isSelected){
                 Image(block.imageName)
-                    .resizable().scaledToFit()
+//                    .resizable().scaledToFit()
             }
             
             // adicionar pileView
@@ -32,7 +32,7 @@ struct GoalView: View {
     
     var body: some View {
         Image(goal.imageName)
-            .resizable().scaledToFit()
+//            .resizable().scaledToFit()
     }
 }
 

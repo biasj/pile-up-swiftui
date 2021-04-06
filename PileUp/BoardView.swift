@@ -11,25 +11,25 @@ struct BoardView: View {
     
     @ObservedObject var puzzle : PuzzleGame
     
-    private let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
+    private let columns: [GridItem] = Array(repeating: .init(.fixed(245), spacing: 20), count: 4)
     
     var body: some View {
-        LazyVGrid(columns: columns, spacing: 10) {
-            ForEach(puzzle.board.blocks) { block in
+        LazyVGrid(columns: columns, spacing: 20) {
+            ForEach(0..<puzzle.board.blocks.count) { i in
                 ZStack {
-                    Image("shadow").resizable().scaledToFit()
+                    Image("shadow")
                     
-                    BlockView(block: block).onTapGesture {
-                        puzzle.selectBlock(block: block)
+                    if puzzle.board.shouldPlaceGoal(id: i) {
+                        GoalView(goal: puzzle.board.goals[puzzle.board.getGoalIndex(of: i)])
+                    }
+                    
+                    // diminuir essa view para caber 
+                    BlockView(block: puzzle.board.blocks[i]).onTapGesture {
+                        puzzle.selectBlock(block: puzzle.board.blocks[i])
                     }
                 }
             }
-        }
+        }.padding()
     }
 }
 

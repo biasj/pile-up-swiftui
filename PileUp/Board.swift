@@ -66,6 +66,24 @@ struct Board {
         }
         return -1
     }
+    
+    func shouldPlaceGoal(id: Int) -> Bool {
+        for goal in goals {
+            if id == goal.id {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func getGoalIndex(of id: Int) -> Int {
+        for i in 0..<goals.count {
+            if id == goals[i].id {
+                return i
+            }
+        }
+        return -1
+    }
 
 }
 
