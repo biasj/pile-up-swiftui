@@ -7,13 +7,12 @@
 
 import Foundation
 
-struct PuzzleGame {
-    var board: Board = Board()
-    
+class PuzzleGame: ObservableObject {
+    @Published var board: Board = Board()
     
     // MARK: - User intents
-    func selectBlock() {
-        
+    func selectBlock(block: Block) {
+        board.selectBlock(block: block)
     }
     
     

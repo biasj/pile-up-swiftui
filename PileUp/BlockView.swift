@@ -12,10 +12,15 @@ struct BlockView: View {
     
     var body: some View {
         ZStack {
-            Image("shadow")
-            
+//            Image("shadow")
+//                .resizable().scaledToFit()
+//            
             // mudar só essa imagem?
-            Image(block.imageName)
+            if(!block.isSelected){
+                Image(block.imageName)
+                    .resizable().scaledToFit()
+            }
+            
             // adicionar pileView
             
         }
@@ -27,6 +32,7 @@ struct GoalView: View {
     
     var body: some View {
         Image(goal.imageName)
+            .resizable().scaledToFit()
     }
 }
 

@@ -8,16 +8,33 @@
 import SwiftUI
 
 struct BoardView: View {
+    
+    @ObservedObject var puzzle : PuzzleGame
+    
+    private let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
+    
     var body: some View {
-        ZStack {
-            GoalView(goal: Goal(id: 1, imageName: "redGoal", pile: 1, isCompleted: false))
-            BlockView(block: Block(id: 1, imageName: "redBlock", pile: 1, isSelected: false))
+        LazyVGrid(columns: columns, spacing: 10) {
+            ForEach(puzzle.board.blocks) { block in
+                ZStack {
+                    Image("shadow").resizable().scaledToFit()
+                    
+                    BlockView(block: block).onTapGesture {
+                        puzzle.selectBlock(block: block)
+                    }
+                }
+            }
         }
     }
 }
 
 struct BoardView_Previews: PreviewProvider {
     static var previews: some View {
-        BoardView()
+        BoardView(puzzle: PuzzleGame())           
     }
 }

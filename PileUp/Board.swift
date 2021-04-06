@@ -39,6 +39,13 @@ struct Board {
             checkEnd()
     }
     
+    mutating func selectBlock(block: Block) {
+        // acha a cópia desse block passado no parametro no array de blocks
+        let chosenIndex = findBlockIndex(block: block)
+        blocks[chosenIndex].isSelected = true
+        
+    }
+    
     func pileBlock() {
         
     }
@@ -49,6 +56,15 @@ struct Board {
     
     func checkEnd() {
         
+    }
+    
+    func findBlockIndex(block: Block) -> Int {
+        for i in 0..<blocks.count {
+            if blocks[i].id == block.id {
+                return i
+            }
+        }
+        return -1
     }
 
 }

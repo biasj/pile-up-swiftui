@@ -9,10 +9,23 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        ZStack {
-            GoalView(goal: Goal(id: 1, imageName: "redGoal", pile: 1, isCompleted: false))
-            BlockView(block: Block(id: 1, imageName: "redBlock", pile: 1, isSelected: false))
-        }
+        
+        NavigationView {
+            VStack {
+                Text("Pile Up!")
+                ZStack {
+                    GoalView(goal: Goal(id: 1, imageName: "redGoal", pile: 1, isCompleted: false))
+                    BlockView(block: Block(id: 1, imageName: "redBlock", pile: 1, isSelected: false))
+                }
+                
+                NavigationLink(destination: BoardView(puzzle: PuzzleGame())){
+                    Text("play!")
+                }
+            }
+        }.navigationViewStyle(StackNavigationViewStyle())
+
+        
+
     }
 }
 
