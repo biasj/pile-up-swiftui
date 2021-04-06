@@ -1,13 +1,13 @@
 //
-//  ContentView.swift
+//  BoardView.swift
 //  PileUp
 //
-//  Created by Beatriz Sato on 04/04/21.
+//  Created by Beatriz Sato on 06/04/21.
 //
 
 import SwiftUI
 
-struct ContentView: View {
+struct BoardView: View {
     var body: some View {
         ZStack {
             GoalView(goal: Goal(id: 1, imageName: "redGoal", pile: 1, isCompleted: false))
@@ -16,10 +16,8 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct BoardView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
-            .previewDisplayName("iPad Pro")
-            .previewLayout(.fixed(width: 1366, height: 1024))
+        BoardView()
     }
 }
