@@ -19,6 +19,7 @@ struct BoardView: View {
                 ZStack {
                     Image("shadow")
                     
+                    // check if any GoalView should be placed at the current index
                     if puzzle.board.shouldPlaceGoal(id: i) {
                         GoalView(goal: puzzle.board.goals[puzzle.board.getGoalIndex(of: i)])
                     }

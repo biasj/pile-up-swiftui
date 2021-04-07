@@ -13,6 +13,8 @@ class PuzzleGame: ObservableObject {
     // MARK: - User intents
     func selectBlock(block: Block) {
         board.selectBlock(block: block)
+        print(block.id)
+        
     }
     
     
