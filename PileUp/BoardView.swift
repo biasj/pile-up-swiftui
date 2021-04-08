@@ -11,16 +11,16 @@ struct BoardView: View {
     
     @ObservedObject var puzzle : PuzzleGame
     
-    private let columns: [GridItem] = Array(repeating: .init(.fixed(245), spacing: 20), count: 4)
+    private let columns: [GridItem] = Array(repeating: .init(.fixed(160), spacing: 10), count: 4)
     
     var body: some View {
-        LazyVGrid(columns: columns, spacing: 20) {
+        LazyVGrid(columns: columns, spacing: 0) {
             ForEach(0..<puzzle.board.blocks.count) { i in
                 ZStack {
-                    Image("shadow")
+                    Image("shadow").resizable().frame(width: 150, height: 75, alignment: .center)
                     
                     // check if any GoalView should be placed at the current index
-                    if puzzle.board.shouldPlaceGoal(id: i) {
+                    if puzzle.board.shouldPlaceGoal(index: i) {
                         GoalView(goal: puzzle.board.goals[puzzle.board.getGoalIndex(of: i)])
                     }
                     
@@ -29,7 +29,7 @@ struct BoardView: View {
                         puzzle.selectBlock(block: puzzle.board.blocks[i])
                     }
                 }
-            }
+            }.padding(10)
         }.padding()
     }
 }

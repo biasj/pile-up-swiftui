@@ -14,7 +14,7 @@ struct ContentView: View {
             VStack {
                 Text("Pile Up!")
                 ZStack {
-                    GoalView(goal: Goal(id: 1, imageName: "redGoal", pile: 1, isCompleted: false))
+                    GoalView(goal: Goal(id: 1, index: 0, imageName: "redGoal", pile: 1, isCompleted: false))
                     BlockView(block: Block(id: 1, imageName: "redBlock", pile: 1, isSelected: false))
                 }
 
@@ -23,22 +23,6 @@ struct ContentView: View {
                 }
             }
         }.navigationViewStyle(StackNavigationViewStyle())
-
-
-//        
-//        let columns: [GridItem] =
-//                Array(repeating: .init(.flexible()), count: 2)
-//        ScrollView {
-//            LazyVGrid(columns: columns) {
-//                ForEach((0...79), id: \.self) {
-//                    let codepoint = $0 + 0x1f600
-//                    let codepointString = String(format: "%02X", codepoint)
-//                    Text("\(codepointString)")
-//                    let emoji = String(Character(UnicodeScalar(codepoint)!))
-//                    Text("\(emoji)")
-//                }
-//            }.font(.largeTitle)
-//        }
 
     }
 }

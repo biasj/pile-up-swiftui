@@ -12,13 +12,10 @@ struct BlockView: View {
     
     var body: some View {
         ZStack {
-//            Image("shadow")
-//                .resizable().scaledToFit()
-//            
             // mudar só essa imagem?
             if(!block.isSelected){
                 Image(block.imageName)
-//                    .resizable().scaledToFit()
+                    .resizable().frame(width: 150, height: 75, alignment: .center)
             }
             
             // adicionar pileView
@@ -32,7 +29,7 @@ struct GoalView: View {
     
     var body: some View {
         Image(goal.imageName)
-//            .resizable().scaledToFit()
+            .resizable().frame(width: 164, height: 88, alignment: .center)
     }
 }
 
@@ -49,7 +46,7 @@ struct BlockView_Previews: PreviewProvider {
 
 struct GoalView_Previews: PreviewProvider {
     static var previews: some View {
-        GoalView(goal: Goal(id: 1, imageName: "redGoal", pile: 1, isCompleted: false))
+        GoalView(goal: Goal(id: 1, index: 0, imageName: "redGoal", pile: 1, isCompleted: false))
             .previewDisplayName("iPad Pro")
             .previewLayout(.fixed(width: 1366, height: 1024))
     }
