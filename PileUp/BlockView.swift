@@ -20,8 +20,12 @@ struct BlockView: View {
     @State var dragAmount = CGSize.zero
     @State var dragState = DragState.unknown
     
+    
+    var onChanged: ((CGPoint, Block) -> DragState)?
+    
     var body: some View {
         ZStack {
+            // placeholder to assure the grids are going to be the same size
             RoundedRectangle(cornerRadius: 10).frame(width: 164, height: 88, alignment: .center).foregroundColor(Color.clear)
             
             // mudar só essa imagem?
@@ -36,11 +40,13 @@ struct BlockView: View {
         .offset(dragAmount)
         .zIndex(dragAmount == .zero ? 0 : 1)
         .shadow(color: dragColor, radius: dragAmount == .zero ? 0 : 10)
+        .shadow(color: dragColor, radius: dragAmount == .zero ? 0 : 10)
         // allows to drag the block aroung
         .gesture(DragGesture(coordinateSpace: .global)
                 .onChanged {
                     // as the drag around the screen happens, it updates it
                     self.dragAmount = CGSize(width: $0.translation.width, height: $0.translation.height)
+                    self.dragState = onChanged?($0.location, self.block) ?? .unknown
                 }
              
                 // when the view is released
