@@ -17,22 +17,23 @@ struct BoardView: View {
     var body: some View {
         ZStack {
             // grid background
-//            RoundedRectangle(cornerRadius: 10).frame(width: 750, height: 450, alignment: .center).foregroundColor(.gray)
+            RoundedRectangle(cornerRadius: 10).frame(width: 750, height: 450, alignment: .center).foregroundColor(.gray)
 
-//            LazyVGrid(columns: columns, spacing: 22) {
-//                ForEach(0..<puzzle.board.blocks.count) { i in
-//                    ZStack {
-//                        Image("shadow").resizable().frame(width: 150, height: 75, alignment: .center)
-//                        if puzzle.board.shouldPlaceGoal(index: i) {
-//                            GoalView(goal: puzzle.board.goals[puzzle.board.getGoalIndex(of: i)])
-//                        }
-//                    }
-//                }
-//
-//            }
+            LazyVGrid(columns: columns, spacing: 15) {
+                ForEach(0..<puzzle.board.blocks.count) { i in
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10).frame(width: 164, height: 88, alignment: .center).foregroundColor(Color.clear)
+                        Image("shadow").resizable().frame(width: 150, height: 75, alignment: .center)
+                        if puzzle.board.shouldPlaceGoal(index: i) {
+                            GoalView(goal: puzzle.board.goals[puzzle.board.getGoalIndex(of: i)])
+                        }
+                    }
+                }
+
+            }
 
             // board grid 4x4
-            LazyVGrid(columns: columns, spacing: 22) {
+            LazyVGrid(columns: columns, spacing: 15) {
                     ForEach(0..<puzzle.board.blocks.count) { i in
                             BlockView(block: puzzle.board.blocks[i])
                     } // block padding

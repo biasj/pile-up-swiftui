@@ -22,6 +22,8 @@ struct BlockView: View {
     
     var body: some View {
         ZStack {
+            RoundedRectangle(cornerRadius: 10).frame(width: 164, height: 88, alignment: .center).foregroundColor(Color.clear)
+            
             // mudar só essa imagem?
             if(!block.isSelected){
                 Image(block.imageName)
