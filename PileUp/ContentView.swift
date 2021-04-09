@@ -15,7 +15,7 @@ struct ContentView: View {
                 Text("Pile Up!")
                 ZStack {
                     GoalView(goal: Goal(id: 1, index: 0, imageName: "redGoal", pile: 1, isCompleted: false))
-                    BlockView(block: Block(id: 1, imageName: "redBlock", pile: 1, isSelected: false))
+                    BlockView(block: Block(id: 1, imageName: "redBlock", index: 1, pile: 1, isDisabled: false))
                 }
 
                 NavigationLink(destination: BoardView(puzzle: PuzzleGame())){

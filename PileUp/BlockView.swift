@@ -22,6 +22,7 @@ struct BlockView: View {
     
     
     var onChanged: ((CGPoint, Block) -> DragState)?
+    var onEnded: ((CGPoint, Int, Block) -> Void)?
     
     var body: some View {
         ZStack {
@@ -29,19 +30,19 @@ struct BlockView: View {
             RoundedRectangle(cornerRadius: 10).frame(width: 164, height: 88, alignment: .center).foregroundColor(Color.clear)
             
             // mudar só essa imagem?
-            if(!block.isSelected){
+            if(!block.isDisabled){
                 Image(block.imageName)
                     .resizable().frame(width: 150, height: 75, alignment: .center)
             }
             
-            // adicionar pileView
+            // TODO: adicionar pileView
             
         }
         .offset(dragAmount)
         .zIndex(dragAmount == .zero ? 0 : 1)
         .shadow(color: dragColor, radius: dragAmount == .zero ? 0 : 10)
         .shadow(color: dragColor, radius: dragAmount == .zero ? 0 : 10)
-        // allows to drag the block aroung
+        // allows to drag the block around
         .gesture(DragGesture(coordinateSpace: .global)
                 .onChanged {
                     // as the drag around the screen happens, it updates it
@@ -50,7 +51,11 @@ struct BlockView: View {
                 }
              
                 // when the view is released
-                .onEnded { _ in
+                .onEnded { 
+                    if self.dragState == .good {
+                        self.onEnded?($0.location, self.block.index, self.block)
+                    }
+                    
                     self.dragAmount = .zero
                 }
         )
@@ -77,24 +82,5 @@ struct GoalView: View {
     var body: some View {
         Image(goal.imageName)
             .resizable().frame(width: 164, height: 88, alignment: .center)
-    }
-}
-
-
-
-struct BlockView_Previews: PreviewProvider {
-    static var previews: some View {
-        BlockView(block: Block(id: 1, imageName: "redBlock", pile: 1, isSelected: false))
-            .previewDisplayName("iPad Pro")
-            .previewLayout(.fixed(width: 1366, height: 1024))
-    }
-}
-
-
-struct GoalView_Previews: PreviewProvider {
-    static var previews: some View {
-        GoalView(goal: Goal(id: 1, index: 0, imageName: "redGoal", pile: 1, isCompleted: false))
-            .previewDisplayName("iPad Pro")
-            .previewLayout(.fixed(width: 1366, height: 1024))
     }
 }

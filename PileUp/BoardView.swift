@@ -12,7 +12,7 @@ struct BoardView: View {
     
     @ObservedObject var puzzle : PuzzleGame
     @State var blockFrames = [CGRect](repeating: .zero, count: 16)
-        
+    
     private let columns: [GridItem] = Array(repeating: .init(.fixed(160), spacing: 12), count: 4)
     
     var body: some View {
@@ -22,19 +22,20 @@ struct BoardView: View {
 
             // grid background (shadow and goals)
             LazyVGrid(columns: columns, spacing: 15) {
-                ForEach(0..<puzzle.board.blocks.count) { i in
+                ForEach(0..<puzzle.getBlocks().count) { i in
                     ZStack {
                         // placeholder to assure the grids are going to be the same size
                         RoundedRectangle(cornerRadius: 10).frame(width: 164, height: 88, alignment: .center).foregroundColor(Color.clear)
                         
                         Image("shadow").resizable().frame(width: 150, height: 75, alignment: .center)
                         
-                        if puzzle.board.shouldPlaceGoal(index: i) {
-                            GoalView(goal: puzzle.board.goals[puzzle.board.getGoalIndex(of: i)])
+                        if puzzle.shouldPlaceGoal(index: i) {
+                            let goalIndex = puzzle.getGoalIndex(index: i)
+                            GoalView(goal: puzzle.getGoals()[goalIndex])
                         }
                         
                     }.overlay(
-                        // to know where the block has been dropped
+                        // tracks where the block has been dropped
                         GeometryReader { geo in
                             Color.clear
                                 .onAppear {
@@ -48,21 +49,19 @@ struct BoardView: View {
 
             // block grid 4x4
             LazyVGrid(columns: columns, spacing: 15) {
-                    ForEach(0..<puzzle.board.blocks.count) { i in
-                        BlockView(block: puzzle.board.blocks[i], onChanged: self.blocksMoved)
-                    } // block padding
+                ForEach(0..<puzzle.getBlocks().count) { i in
+                    BlockView(block: puzzle.getBlock(of: i), onChanged: self.blockMoved, onEnded: self.blockDropped)
+                }
             }
             
-            
-        }.padding() // whole board padding
-        
+        }.padding()
     }
     
     // shows where it's possible to drop a block
-    func blocksMoved(location: CGPoint, block: Block) -> DragState {
+    func blockMoved(location: CGPoint, block: Block) -> DragState {
         if let match = blockFrames.firstIndex(where: { $0.contains(location)}) {
-            // check if the drop zone is the neighbor 
-            if puzzle.board.blocks[match].imageName == block.imageName {
+            // check if the drop zone is the neighbor
+            if puzzle.haveSameImages(at: match, block: block) && !block.isDisabled {
                 return .good
             } else {
                 return .bad
@@ -74,10 +73,22 @@ struct BoardView: View {
             return .unknown
         }
     }
-}
-
-struct BoardView_Previews: PreviewProvider {
-    static var previews: some View {
-        BoardView(puzzle: PuzzleGame())           
+    
+    func blockDropped(location: CGPoint,from blockIndex: Int, block: Block) {
+        // the position of where it was dropped on
+        if let dropIndex = blockFrames.firstIndex(where: {$0.contains(location)} ) {
+    
+            if puzzle.shouldDropBlock(at: dropIndex, block: block){
+                // if they have the same images, pile
+                if puzzle.haveSameImages(at: dropIndex, block: block) {
+                    // disables block that was dragged
+                    puzzle.disable(at: blockIndex)
+                    puzzle.pile(at: dropIndex, from: block)
+                } else {
+                  // swap blocks
+                    
+                }
+            }
+        }
     }
 }

@@ -18,33 +18,35 @@ struct Board {
         // imagem do bloco deve ser gerado de forma aleatória dentro do laço, mas deve ter 4 blocos com cada cor
         blocks = generateBlocks()
         blocks.shuffle()
+        setBlockIndexes()
         
         goals = generateGoals()
     }
     
     // MARK: - Logic
-    func moveBlock(block: Block) {
-        print("\(block.imageName)")
-        
-        // check if the blocks are same color and pile them if they are
-            pileBlock()
-        // or swap them if they aren't
-           swapBlocks()
-        
-        // check if there's possible moves or if the game has ended
-            checkEnd()
+    mutating func disableBlock(at index: Int) {
+        blocks[index].isDisabled = true
     }
     
-    mutating func selectBlock(block: Block) {
-        // acha a cópia desse block passado no parametro no array de blocks
-        let chosenIndex = findBlockIndex(block: block)
-        blocks[chosenIndex].isSelected = true
-        
+    mutating func pileBlock(at index: Int,from block: Block) {
+        if index != block.index && !block.isDisabled {
+            blocks[index].pile += block.pile
+        }
+        print(blocks[index].pile)
     }
     
-    func pileBlock() {
-        
+    func shouldDropBlock(at index: Int, block: Block) -> Bool {
+        return index != block.index && !blocks[index].isDisabled
     }
+    
+    func haveSameImages(at index: Int, block: Block) -> Bool {
+        return blocks[index].imageName == block.imageName
+    }
+    
+    func isDisabled(index: Int) -> Bool {
+        return blocks[index].isDisabled
+    }
+
     
     func swapBlocks() {
         
@@ -54,6 +56,21 @@ struct Board {
         
     }
     
+    
+    // MARK: - Access
+    func getGoals() -> [Goal] {
+        return goals
+    }
+    
+    func getBlocks() -> [Block] {
+        return blocks
+    }
+    
+    func getBlock(of index: Int) -> Block {
+        return blocks[index]
+    }
+
+    
     func findBlockIndex(block: Block) -> Int {
         for i in 0..<blocks.count {
             if blocks[i].id == block.id {
@@ -62,15 +79,7 @@ struct Board {
         }
         return -1
     }
-    
-    func shouldPlaceGoal(index: Int) -> Bool {
-        for goal in goals {
-            if index == goal.index {
-                return true
-            }
-        }
-        return false
-    }
+
     
     func getGoalIndex(of index: Int) -> Int {
         for i in 0..<goals.count {
@@ -81,9 +90,7 @@ struct Board {
         return -1
     }
     
-    
-    // MARK: initialization methods
-    
+    // MARK: initialization methods -> deveriam estar no puzzle game?
     // generates 4 blocks of each color (red, blue, yellow, green)
     func generateBlocks() -> [Block] {
         var blocks = [Block]()
@@ -99,7 +106,7 @@ struct Board {
     func generateColor(imageName: String, from initial: Int, until end: Int) -> [Block] {
         var blocks = [Block]()
         for i in initial..<end {
-            let block = Block(id: i, imageName: imageName)
+            let block = Block(id: i, imageName: imageName, index: i)
             blocks.append(block)
         }
         
@@ -138,32 +145,24 @@ struct Board {
         return indexes
     }
 
+    mutating func setBlockIndexes() {
+        for i in 0..<blocks.count {
+            blocks[i].index = i
+        }
+    }
+    
+    
+    // goal view initialization
+    func shouldPlaceGoal(index: Int) -> Bool {
+        for goal in goals {
+            if index == goal.index {
+                return true
+            }
+        }
+        return false
+    }
+    
 }
 
 
-// MARK: - Goal and Block model
-// qual seria a diferença de colocar as structs aqui dentro ou do lado de fora?
-struct Goal {
-    let id: Int
-    let index: Int
-    let imageName: String
-    // all goals start with 0 or 1 and are not selected, but that only matters at the end
-    var pile: Int = 0
-    var isCompleted: Bool = false
-}
 
-struct Block {
-    let id: Int
-    let imageName: String
-    // all blocks start with 1 pile (itself) and are not selected
-    var pile: Int = 1
-    var isSelected: Bool = false
-}
-
-
-enum BlockColors {
-    case red
-    case blue
-    case green
-    case yellow
-}

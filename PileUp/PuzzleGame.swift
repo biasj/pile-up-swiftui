@@ -11,13 +11,45 @@ class PuzzleGame: ObservableObject {
     @Published var board: Board = Board()
     
     // MARK: - User intents
-    func selectBlock(block: Block) {
-        board.selectBlock(block: block)
-        print(block.id)
-        
+    func disable(at index: Int) {
+        board.disableBlock(at: index)
+    }
+    
+    func pile(at index: Int, from block: Block) {
+        board.pileBlock(at: index, from: block)
     }
     
     
     // MARK: - Model access
+    func getGoals() -> [Goal] {
+        return board.getGoals()
+    }
     
+    func getBlocks() -> [Block] {
+        return board.getBlocks()
+    }
+    
+    func getBlock(of index: Int) -> Block {
+        return board.getBlock(of: index)
+    }
+    
+    func shouldPlaceGoal(index: Int) -> Bool {
+        return board.shouldPlaceGoal(index: index)
+    }
+    
+    func shouldDropBlock(at index: Int, block: Block) -> Bool {
+        return board.shouldDropBlock(at: index, block: block)
+    }
+    
+    func haveSameImages(at index: Int, block: Block) -> Bool {
+        return board.haveSameImages(at: index, block: block)
+    }
+    
+    func getGoalIndex(index: Int) -> Int {
+        return board.getGoalIndex(of: index)
+    }
+    
+    func isBlockDisabled(at index: Int) -> Bool{
+        return board.isDisabled(index: index)
+    }
 }
