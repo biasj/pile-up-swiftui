@@ -76,11 +76,4 @@ struct BlockView: View {
     }
 }
 
-struct GoalView: View {
-    var goal: Goal
-    
-    var body: some View {
-        Image(goal.imageName)
-            .resizable().frame(width: 164, height: 88, alignment: .center)
-    }
-}
+
