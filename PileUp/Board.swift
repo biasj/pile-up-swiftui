@@ -66,13 +66,11 @@ struct Board {
     mutating func swapBlocks(from block: Block, to index: Int) {
         // find block at array
         let firstIndex = findBlockIndex(block: block)
-        let firstBlock = blocks[firstIndex]
-
         
         blocks.swapAt(firstIndex, index)
         
         // update indexes
-        blocks[index] = firstBlock
+        blocks[firstIndex].index = firstIndex
         blocks[index].index = index
     }
     
