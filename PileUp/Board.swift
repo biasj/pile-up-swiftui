@@ -32,7 +32,6 @@ struct Board {
         if index != block.index && !block.isDisabled {
             blocks[index].pile += block.pile
         }
-        print(blocks[index].pile)
     }
     
     func shouldDropBlock(at index: Int, block: Block) -> Bool {
@@ -46,9 +45,38 @@ struct Board {
     func isDisabled(index: Int) -> Bool {
         return blocks[index].isDisabled
     }
+    
+    func isNeighbor(block: Block,to index: Int) -> Bool {
+        switch block.index {
+        // middle blocks
+        case 5, 6, 9, 10, 1, 2, 13, 14:
+            return abs(index - block.index) == 1 || abs(index - block.index) == 4
+        // right column
+        case 3, 7, 11, 15:
+            return block.index - index == 1 || abs(index - block.index) == 4
+        // left column
+        case 0, 4, 8, 12:
+            return index - block.index == 1 || abs(index - block.index) == 4
+        default:
+            return false
+        }
+    }
 
     
-    func swapBlocks() {
+    mutating func swapBlocks(from block: Block, to index: Int) {
+        // find block at array
+        let firstIndex = findBlockIndex(block: block)
+        let firstBlock = blocks[firstIndex]
+
+        
+        blocks.swapAt(firstIndex, index)
+        
+        // update indexes
+        blocks[index] = firstBlock
+        blocks[index].index = index
+    }
+    
+    func updateIndex() {
         
     }
     
@@ -72,22 +100,12 @@ struct Board {
 
     
     func findBlockIndex(block: Block) -> Int {
-        for i in 0..<blocks.count {
-            if blocks[i].id == block.id {
-                return i
-            }
-        }
-        return -1
+        return blocks.firstIndex(where: { $0.id == block.id } ) ?? -1
     }
 
     
     func getGoalIndex(of index: Int) -> Int {
-        for i in 0..<goals.count {
-            if index == goals[i].index {
-                return i
-            }
-        }
-        return -1
+        return goals.firstIndex(where: { $0.index == index} ) ?? -1
     }
     
     // MARK: initialization methods -> deveriam estar no puzzle game?

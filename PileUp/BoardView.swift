@@ -57,11 +57,17 @@ struct BoardView: View {
         }.padding()
     }
     
+    // MARK: Gesture methods
+    
     // shows where it's possible to drop a block
     func blockMoved(location: CGPoint, block: Block) -> DragState {
         if let match = blockFrames.firstIndex(where: { $0.contains(location)}) {
+            
+            print("match: \(match)")
             // check if the drop zone is the neighbor
-            if puzzle.haveSameImages(at: match, block: block) && !block.isDisabled {
+            if match == block.index {
+                return .unknown
+            } else if puzzle.isNeighbor(block: block, index: match) && !puzzle.isBlockDisabled(at: match) {
                 return .good
             } else {
                 return .bad
@@ -84,9 +90,15 @@ struct BoardView: View {
                     // disables block that was dragged
                     puzzle.disable(at: blockIndex)
                     puzzle.pile(at: dropIndex, from: block)
-                } else {
-                  // swap blocks
                     
+                    
+                    
+                } else {
+                    // swap block and puzzle.dropIndex
+                    puzzle.swap(from: block, to: dropIndex)
+                    print("block index: \(puzzle.getBlocks()[dropIndex].index)")
+                    print("should be index: \(dropIndex)")
+                    print("should be index: \(block.index)")
                 }
             }
         }

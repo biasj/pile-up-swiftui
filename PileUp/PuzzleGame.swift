@@ -19,6 +19,9 @@ class PuzzleGame: ObservableObject {
         board.pileBlock(at: index, from: block)
     }
     
+    func swap(from block: Block, to index: Int) {
+        board.swapBlocks(from: block, to: index)
+    }
     
     // MARK: - Model access
     func getGoals() -> [Goal] {
@@ -52,4 +55,10 @@ class PuzzleGame: ObservableObject {
     func isBlockDisabled(at index: Int) -> Bool{
         return board.isDisabled(index: index)
     }
+    
+    func isNeighbor(block: Block, index: Int) -> Bool {
+        return board.isNeighbor(block: block, to: index)
+    }
+    
+    
 }

@@ -14,7 +14,7 @@ enum DragState {
 }
 
 
-struct BlockView: View {
+public struct BlockView: View {
     var block: Block
     
     @State var dragAmount = CGSize.zero
@@ -24,7 +24,13 @@ struct BlockView: View {
     var onChanged: ((CGPoint, Block) -> DragState)?
     var onEnded: ((CGPoint, Int, Block) -> Void)?
     
-    var body: some View {
+    init(block: Block, onChanged: @escaping ((CGPoint, Block) -> DragState), onEnded: @escaping ((CGPoint, Int, Block) -> Void)) {
+        self.block = block
+        self.onEnded = onEnded
+        self.onChanged = onChanged
+    }
+    
+    public var body: some View {
         ZStack {
             // placeholder to assure the grids are going to be the same size
             RoundedRectangle(cornerRadius: 10).frame(width: 164, height: 88, alignment: .center).foregroundColor(Color.clear)
