@@ -10,7 +10,7 @@ import Foundation
 struct Block {
     let id: Int
     let imageName: String
-    // all blocks start with 1 pile (itself) and are not selected
+    // all blocks start with 1 pile (itself) and are not disabled
     var index: Int
     var pile: Int = 1
     var isDisabled: Bool = false

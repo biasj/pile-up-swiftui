@@ -61,10 +61,7 @@ struct BoardView: View {
     
     // shows where it's possible to drop a block
     func blockMoved(location: CGPoint, block: Block) -> DragState {
-        print("block index: \(block.index)")
         if let match = blockFrames.firstIndex(where: { $0.contains(location)}) {
-            print("goal index: \(match)")
-            
             // check if the drop zone is the neighbor
             if match == block.index {
                 return .unknown

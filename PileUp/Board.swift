@@ -29,9 +29,8 @@ struct Board {
     }
     
     mutating func pileBlock(at index: Int,from block: Block) {
-        if index != block.index && !block.isDisabled {
-            blocks[index].pile += block.pile
-        }
+        blocks[index].pile += block.pile
+        print("pile: \(blocks[index].pile)")
     }
     
     func shouldDropBlock(at index: Int, block: Block) -> Bool {

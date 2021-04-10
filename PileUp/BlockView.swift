@@ -20,6 +20,7 @@ public struct BlockView: View {
     @State var dragAmount = CGSize.zero
     @State var dragState = DragState.unknown
     
+    let columns: [GridItem] = Array(repeating: .init(.fixed(10), spacing: 5), count: 2)
     
     var onChanged: ((CGPoint, Block) -> DragState)?
     var onEnded: ((CGPoint, Int, Block) -> Void)?
@@ -39,9 +40,10 @@ public struct BlockView: View {
             if(!block.isDisabled){
                 Image(block.imageName)
                     .resizable().frame(width: 150, height: 75, alignment: .center)
+                // TODO: adicionar pileView
+                PileView(pile: block.pile)
             }
             
-            // TODO: adicionar pileView
             
         }
         .offset(dragAmount)
@@ -53,7 +55,7 @@ public struct BlockView: View {
                 .onChanged {
                     // as the drag around the screen happens, it updates it
                     self.dragAmount = CGSize(width: $0.translation.width, height: $0.translation.height)
-                    self.dragState = onChanged?($0.location, self.block) ?? .unknown
+                    self.dragState = onChanged?($0.location, block) ?? .unknown
                 }
              
                 // when the view is released
