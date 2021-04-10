@@ -17,9 +17,16 @@ struct BoardView: View {
     
     var body: some View {
         VStack {
-            Button(action: { puzzle.newGame() }, label: {
-                Text("New Game")
-            })
+            HStack {
+                Button(action: { puzzle.newGame() }, label: {
+                    Text("New Game")
+                })
+                
+                Button(action: { puzzle.resetGame() }, label: {
+                    Text("Restart")
+                })
+            }
+            
             
             // board
             ZStack {

@@ -8,21 +8,23 @@
 import Foundation
 
 class PuzzleGame: ObservableObject {
-    @Published var board: Board = Board()
-//    var resetBoard : Board
+    @Published var board: Board
+    var reset: Board
     
     init() {
         self.board = Board()
-//        self.resetBoard = board
+        self.reset = Board()
+        reset = board
     }
     
     func newGame() {
         board = Board()
+        reset = board
     }
     
-//    func restart() {
-//        board = resetBoard
-//    }
+    func resetGame() {
+        board = reset
+    }
     
     
     // MARK: - User intents

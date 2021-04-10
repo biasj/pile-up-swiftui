@@ -19,19 +19,52 @@ struct PileView: View {
         LazyVGrid(columns: columns, spacing: 5) {
             ForEach(0..<(puzzle.getBlocks()[block.index].pile), id: \.self) { _ in
                 
-                switch block.color {
-                case .red:
-                    Circle().frame(width: 10, height: 10, alignment: .center).position(x: -50, y: -10)
-                case .blue:
-                    Circle().frame(width: 10, height: 10, alignment: .center).position(x: 60, y: -10)
-                case .yellow:
-                    Circle().frame(width: 10, height: 10, alignment: .center).position(x: -50, y: 20)
-                case .green:
-                    Circle().frame(width: 10, height: 10, alignment: .center).position(x: 60, y: 20)
+                // position grid following number of piles and colors
+                
+                switch puzzle.getBlocks()[block.index].pile {
+                case 1:
+                    switch block.color {
+                    case .red:
+                        Circle().frame(width: 10, height: 10, alignment: .center).position(x: -50, y: -20)
+                    case .blue:
+                        Circle().frame(width: 10, height: 10, alignment: .center).position(x: 75, y: -20)
+                    case .yellow:
+                        Circle().frame(width: 10, height: 10, alignment: .center).position(x: -50, y: 30)
+                    case .green:
+                        Circle().frame(width: 10, height: 10, alignment: .center).position(x: 75, y: 30)
+                    }
+                    
+                case 2:
+                    switch block.color {
+                    case .red:
+                        Circle().frame(width: 10, height: 10, alignment: .center).position(x: -50, y: -20)
+                    case .blue:
+                        Circle().frame(width: 10, height: 10, alignment: .center).position(x: 60, y: -20)
+                    case .yellow:
+                        Circle().frame(width: 10, height: 10, alignment: .center).position(x: -50, y: 30)
+                    case .green:
+                        Circle().frame(width: 10, height: 10, alignment: .center).position(x: 60, y: 30)
+                    }
+                
+                case 3, 4:
+                    switch block.color {
+                    case .red:
+                        Circle().frame(width: 10, height: 10, alignment: .center).position(x: -50, y: -12)
+                    case .blue:
+                        Circle().frame(width: 10, height: 10, alignment: .center).position(x: 60, y: -12)
+                    case .yellow:
+                        Circle().frame(width: 10, height: 10, alignment: .center).position(x: -50, y: 22)
+                    case .green:
+                        Circle().frame(width: 10, height: 10, alignment: .center).position(x: 60, y: 22)
+                    }
+                    
+                default: Circle().frame(width: 10, height: 10, alignment: .center).position(x: -50, y: -15)
                 }
-                
-                
+            
+        
             }.foregroundColor(.white)
+            
         }
     }
+    
 }
