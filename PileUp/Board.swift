@@ -77,8 +77,20 @@ struct Board {
         
     }
     
-    func checkEnd() {
+    func checkEnd() -> Bool {
+        return checkVictory()
+    }
+    
+    func checkVictory() -> Bool {
+        var completedBlocks = 0
         
+        for block in blocks {
+            if !block.isDisabled && block.pile == 4 && block.color == goals[getGoalIndex(of: block.index)].blockColor {
+                completedBlocks += 1
+            }
+        }
+        
+        return completedBlocks == 4
     }
     
     
@@ -134,10 +146,10 @@ struct Board {
         let indexes:[Int] = generateRandomIndexes()
         
         // the id of each goal is the same as the first id of each block color
-        goals.append(Goal(id: 0, index: indexes[0], imageName: "redGoal"))
-        goals.append(Goal(id: 4, index: indexes[1], imageName: "blueGoal"))
-        goals.append(Goal(id: 8, index: indexes[2], imageName: "yellowGoal"))
-        goals.append(Goal(id: 12, index: indexes[3], imageName: "greenGoal"))
+        goals.append(Goal(id: 0, index: indexes[0], imageName: "redGoal", blockColor: BlockColor.red))
+        goals.append(Goal(id: 4, index: indexes[1], imageName: "blueGoal", blockColor: BlockColor.blue))
+        goals.append(Goal(id: 8, index: indexes[2], imageName: "yellowGoal", blockColor: BlockColor.yellow))
+        goals.append(Goal(id: 12, index: indexes[3], imageName: "greenGoal", blockColor: BlockColor.green))
         
         return goals
     }

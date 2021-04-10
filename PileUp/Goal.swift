@@ -14,6 +14,6 @@ struct Goal {
     let index: Int
     let imageName: String
     // all goals start with 0 or 1 and are not selected, but that only matters at the end
-    var pile: Int = 0
+    var blockColor: BlockColor
     var isCompleted: Bool = false
 }

@@ -26,6 +26,11 @@ class PuzzleGame: ObservableObject {
         board = reset
     }
     
+    // MARK: End
+    func checkVictory() -> Bool {
+        board.checkVictory()
+    }
+    
     
     // MARK: - User intents
     func disable(at index: Int) {

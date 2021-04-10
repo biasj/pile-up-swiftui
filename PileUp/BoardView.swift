@@ -119,5 +119,7 @@ struct BoardView: View {
                 }
             }
         }
+        
+        print("fim de jogo \(puzzle.checkVictory())")
     }
 }
