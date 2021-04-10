@@ -15,7 +15,9 @@ enum DragState {
 
 
 public struct BlockView: View {
-    var block: Block
+    var block: Block // não deveria acessar o modelo, e sim o view model? o puzzle game?
+    
+    @EnvironmentObject var puzzle: PuzzleGame
     
     @State var dragAmount = CGSize.zero
     @State var dragState = DragState.unknown
@@ -37,14 +39,11 @@ public struct BlockView: View {
             RoundedRectangle(cornerRadius: 10).frame(width: 164, height: 88, alignment: .center).foregroundColor(Color.clear)
             
             // mudar só essa imagem?
-            if(!block.isDisabled){
-                Image(block.imageName)
+            if(!puzzle.getBlocks()[block.index].isDisabled){
+                Image(puzzle.getBlocks()[block.index].imageName)
                     .resizable().frame(width: 150, height: 75, alignment: .center)
-                // TODO: adicionar pileView
-                PileView(pile: block.pile)
+                PileView(block: puzzle.getBlocks()[block.index])
             }
-            
-            
         }
         .offset(dragAmount)
         .zIndex(dragAmount == .zero ? 0 : 1)
@@ -82,6 +81,10 @@ public struct BlockView: View {
             return .red
         }
     }
+    
+    // usar a mesma lógica do BoardView no onChanged e onEnded
+    
+    // função de mudar a trasn
 }
 
 

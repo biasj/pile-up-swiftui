@@ -10,7 +10,7 @@ import SwiftUI
 
 struct BoardView: View {
     
-    @ObservedObject var puzzle : PuzzleGame
+    @EnvironmentObject var puzzle : PuzzleGame
     @State var blockFrames = [CGRect](repeating: .zero, count: 16)
     
     private let columns: [GridItem] = Array(repeating: .init(.fixed(160), spacing: 12), count: 4)
@@ -50,12 +50,16 @@ struct BoardView: View {
             // block grid 4x4
             LazyVGrid(columns: columns, spacing: 15) {
                 ForEach(0..<puzzle.getBlocks().count) { i in
-                    BlockView(block: puzzle.getBlock(of: i), onChanged: self.blockMoved, onEnded: self.blockDropped)
+                    BlockView(block: puzzle.getBlock(of: i), onChanged: self.blockMoved, onEnded: self.blockDropped)            
                 }
             }
             
         }.padding()
+        
+        
+
     }
+    
     
     // MARK: Gesture methods
     
@@ -78,6 +82,7 @@ struct BoardView: View {
         }
     }
     
+    
     func blockDropped(location: CGPoint,from blockIndex: Int, block: Block) {
         // the position of where it was dropped on
         if let dropIndex = blockFrames.firstIndex(where: {$0.contains(location)} ) {
@@ -87,9 +92,7 @@ struct BoardView: View {
                 if puzzle.haveSameImages(at: dropIndex, block: block) {
                     // disables block that was dragged
                     puzzle.disable(at: blockIndex)
-                    puzzle.pile(at: dropIndex, from: block)
-                    
-                    
+                    puzzle.pile(at: dropIndex, from: block)                    
                     
                 } else {
                     // swap block and puzzle.dropIndex

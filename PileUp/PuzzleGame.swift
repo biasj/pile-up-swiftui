@@ -59,6 +59,4 @@ class PuzzleGame: ObservableObject {
     func isNeighbor(block: Block, index: Int) -> Bool {
         return board.isNeighbor(block: block, to: index)
     }
-    
-    
 }

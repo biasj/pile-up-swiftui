@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @EnvironmentObject var puzzle: PuzzleGame
+    
     var body: some View {
         
         NavigationView {
@@ -18,7 +21,7 @@ struct ContentView: View {
 //                    BlockView(block: Block(id: 1, imageName: "redBlock", index: 1, pile: 1, isDisabled: false))
                 }
 
-                NavigationLink(destination: BoardView(puzzle: PuzzleGame())){
+                NavigationLink(destination: BoardView(puzzle: _puzzle)){
                     Text("play!")
                 }
             }
@@ -29,7 +32,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(PuzzleGame())
             .previewDisplayName("iPad Pro")
             .previewLayout(.fixed(width: 1366, height: 1024))
     }

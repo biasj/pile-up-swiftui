@@ -11,7 +11,7 @@ import SwiftUI
 struct PileUpApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environmentObject(PuzzleGame())
         }
     }
 }
