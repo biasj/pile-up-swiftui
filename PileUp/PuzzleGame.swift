@@ -9,6 +9,21 @@ import Foundation
 
 class PuzzleGame: ObservableObject {
     @Published var board: Board = Board()
+//    var resetBoard : Board
+    
+    init() {
+        self.board = Board()
+//        self.resetBoard = board
+    }
+    
+    func newGame() {
+        board = Board()
+    }
+    
+//    func restart() {
+//        board = resetBoard
+//    }
+    
     
     // MARK: - User intents
     func disable(at index: Int) {

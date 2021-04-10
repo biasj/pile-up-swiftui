@@ -109,19 +109,19 @@ struct Board {
     // generates 4 blocks of each color (red, blue, yellow, green)
     func generateBlocks() -> [Block] {
         var blocks = [Block]()
-        blocks += generateColor(imageName: "redBlock", from: 0, until: 4)
-        blocks += generateColor(imageName: "blueBlock", from: 4, until: 8)
-        blocks += generateColor(imageName: "yellowBlock", from: 8, until: 12)
-        blocks += generateColor(imageName: "greenBlock", from: 12, until: 16)
+        blocks += generateColor(imageName: "redBlock", blockColor: BlockColor.red, from: 0, until: 4)
+        blocks += generateColor(imageName: "blueBlock", blockColor: BlockColor.blue, from: 4, until: 8)
+        blocks += generateColor(imageName: "yellowBlock", blockColor: BlockColor.yellow, from: 8, until: 12)
+        blocks += generateColor(imageName: "greenBlock", blockColor: BlockColor.green, from: 12, until: 16)
         
         return blocks
     }
     
     // generates 4 blocks with the specified color
-    func generateColor(imageName: String, from initial: Int, until end: Int) -> [Block] {
+    func generateColor(imageName: String, blockColor: BlockColor, from initial: Int, until end: Int) -> [Block] {
         var blocks = [Block]()
         for i in initial..<end {
-            let block = Block(id: i, imageName: imageName, index: i)
+            let block = Block(id: i, imageName: imageName, index: i, color: blockColor)
             blocks.append(block)
         }
         

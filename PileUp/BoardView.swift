@@ -16,45 +16,54 @@ struct BoardView: View {
     private let columns: [GridItem] = Array(repeating: .init(.fixed(160), spacing: 12), count: 4)
     
     var body: some View {
-        ZStack {
-            // grid background
-            RoundedRectangle(cornerRadius: 10).frame(width: 750, height: 450, alignment: .center).foregroundColor(.gray)
-
-            // grid background (shadow and goals)
-            LazyVGrid(columns: columns, spacing: 15) {
-                ForEach(0..<puzzle.getBlocks().count) { i in
-                    ZStack {
-                        // placeholder to assure the grids are going to be the same size
-                        RoundedRectangle(cornerRadius: 10).frame(width: 164, height: 88, alignment: .center).foregroundColor(Color.clear)
-                        
-                        Image("shadow").resizable().frame(width: 150, height: 75, alignment: .center)
-                        
-                        if puzzle.shouldPlaceGoal(index: i) {
-                            let goalIndex = puzzle.getGoalIndex(index: i)
-                            GoalView(goal: puzzle.getGoals()[goalIndex])
-                        }
-                        
-                    }.overlay(
-                        // tracks where the block has been dropped
-                        GeometryReader { geo in
-                            Color.clear
-                                .onAppear {
-                                    self.blockFrames[i] = geo.frame(in: .global)
-                                }
-                        }
-                    )
-                }
-            }
+        VStack {
+            Button(action: { puzzle.newGame() }, label: {
+                Text("New Game")
+            })
             
+            // board
+            ZStack {
+                // grid background
+                RoundedRectangle(cornerRadius: 10).frame(width: 750, height: 450, alignment: .center).foregroundColor(.gray)
 
-            // block grid 4x4
-            LazyVGrid(columns: columns, spacing: 15) {
-                ForEach(0..<puzzle.getBlocks().count) { i in
-                    BlockView(block: puzzle.getBlock(of: i), onChanged: self.blockMoved, onEnded: self.blockDropped)            
+                // grid background (shadow and goals)
+                LazyVGrid(columns: columns, spacing: 15) {
+                    ForEach(0..<puzzle.getBlocks().count) { i in
+                        ZStack {
+                            // placeholder to assure the grids are going to be the same size
+                            RoundedRectangle(cornerRadius: 10).frame(width: 164, height: 88, alignment: .center).foregroundColor(Color.clear)
+                            
+                            Image("shadow").resizable().frame(width: 150, height: 75, alignment: .center)
+                            
+                            if puzzle.shouldPlaceGoal(index: i) {
+                                let goalIndex = puzzle.getGoalIndex(index: i)
+                                GoalView(goal: puzzle.getGoals()[goalIndex])
+                            }
+                            
+                        }.overlay(
+                            // tracks where the block has been dropped
+                            GeometryReader { geo in
+                                Color.clear
+                                    .onAppear {
+                                        self.blockFrames[i] = geo.frame(in: .global)
+                                    }
+                            }
+                        )
+                    }
                 }
-            }
-            
-        }.padding()
+                
+
+                // block grid 4x4
+                LazyVGrid(columns: columns, spacing: 15) {
+                    ForEach(0..<puzzle.getBlocks().count) { i in
+                        BlockView(block: puzzle.getBlock(of: i), onChanged: self.blockMoved, onEnded: self.blockDropped)
+                    }
+                }
+                
+            }.padding()
+        }
+        
+        
         
         
 

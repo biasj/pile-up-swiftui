@@ -14,9 +14,11 @@ struct Block {
     var index: Int
     var pile: Int = 1
     var isDisabled: Bool = false
+    
+    var color: BlockColor
 }
 
-enum BlockColors {
+enum BlockColor {
     case red
     case blue
     case green
