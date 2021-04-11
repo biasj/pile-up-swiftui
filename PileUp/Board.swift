@@ -15,12 +15,11 @@ struct Board {
         blocks = [Block]()
         goals = [Goal]()
         
-        // imagem do bloco deve ser gerado de forma aleatória dentro do laço, mas deve ter 4 blocos com cada cor
-        blocks = generateBlocks()
+        self.blocks = generateBlocks()
+        self.goals = generateGoals()
+        
         blocks.shuffle()
         setBlockIndexes()
-        
-        goals = generateGoals()
     }
     
     // MARK: - Logic
@@ -81,12 +80,15 @@ struct Board {
         return checkVictory()
     }
     
+    // NÃO DEVERIA CHECAR "VITÓRIA", DEVERIA SOMAR PONTOS
+    
     func checkVictory() -> Bool {
         var completedBlocks = 0
         
         for block in blocks {
             if !block.isDisabled && block.pile == 4 && block.color == goals[getGoalIndex(of: block.index)].blockColor {
                 completedBlocks += 1
+                // impedir de mexer bloco depois de fechar????? porque tá dando erro de index
             }
         }
         
@@ -140,7 +142,7 @@ struct Board {
         return blocks
     }
     
-    // generate 1 goal of each color, at with random indexes 
+    // generate 1 goal of each color, at with random indexes
     func generateGoals() -> [Goal] {
         var goals = [Goal]()
         let indexes:[Int] = generateRandomIndexes()
@@ -188,7 +190,6 @@ struct Board {
         }
         return false
     }
-    
 }
 
 

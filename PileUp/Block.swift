@@ -10,12 +10,12 @@ import Foundation
 struct Block {
     let id: Int
     let imageName: String
-    // all blocks start with 1 pile (itself) and are not disabled
     var index: Int
+    var color: BlockColor
+    // all blocks start with 1 pile (itself) and are not disabled
+
     var pile: Int = 1
     var isDisabled: Bool = false
-    
-    var color: BlockColor
 }
 
 enum BlockColor {

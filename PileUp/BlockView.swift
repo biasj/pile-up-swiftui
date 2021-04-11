@@ -15,7 +15,7 @@ enum DragState {
 
 
 public struct BlockView: View {
-    var block: Block // não deveria acessar o modelo, e sim o view model? o puzzle game?
+    var block: Block
     
     @EnvironmentObject var puzzle: PuzzleGame
     
@@ -38,7 +38,7 @@ public struct BlockView: View {
             // placeholder to assure the grids are going to be the same size
             RoundedRectangle(cornerRadius: 10).frame(width: 164, height: 88, alignment: .center).foregroundColor(Color.clear)
             
-            // mudar só essa imagem?
+            // if the block isn't disabled, show image and  pile indicator
             if(!puzzle.getBlocks()[block.index].isDisabled){
                 Image(puzzle.getBlocks()[block.index].imageName)
                     .resizable().frame(width: 150, height: 75, alignment: .center)
@@ -81,10 +81,6 @@ public struct BlockView: View {
             return .red
         }
     }
-    
-    // usar a mesma lógica do BoardView no onChanged e onEnded
-    
-    // função de mudar a trasn
 }
 
 

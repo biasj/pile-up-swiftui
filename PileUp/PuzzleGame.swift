@@ -8,10 +8,12 @@
 import Foundation
 
 class PuzzleGame: ObservableObject {
-    @Published var board: Board
+    @Published var board: Board = Board()
+
     var reset: Board
     
     init() {
+        // saves for reset case
         self.board = Board()
         self.reset = Board()
         reset = board
