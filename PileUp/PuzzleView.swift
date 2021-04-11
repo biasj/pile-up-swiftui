@@ -22,6 +22,6 @@ struct PuzzleView: View {
 
 struct PuzzleView_Previews: PreviewProvider {
     static var previews: some View {
-        PuzzleView()
+        PuzzleView().environmentObject(PuzzleGame())
     }
 }

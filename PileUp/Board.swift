@@ -8,18 +8,46 @@
 import Foundation
 
 struct Board {
-    var blocks: [Block]
-    var goals: [Goal]
+    var blocks: [Block] = [Block]()
+    var goals: [Goal] = [Goal]()
+    
+    var points: Int = 0
+    var highScore: Int = 0
+    var isBreakingRecord: Bool = false
     
     init() {
-        blocks = [Block]()
-        goals = [Goal]()
-        
-        self.blocks = generateBlocks()
-        self.goals = generateGoals()
+        newBoard()
+    }
+    
+    mutating func newBoard() {
+        blocks = generateBlocks()
+        goals = generateGoals()
         
         blocks.shuffle()
         setBlockIndexes()
+    }
+    
+    mutating func newGame() {
+        newBoard()
+        points = 0
+    }
+    
+    func isRecord() -> Bool {
+        if highScore < points {
+            // record breaking
+            return true
+        }
+        return false
+    }
+    
+    mutating func endGame() {
+        if isRecord() {
+            highScore = points
+        }
+    }
+    
+    func saveCopy() -> Board {
+        return self
     }
     
     // MARK: - Logic
@@ -30,6 +58,22 @@ struct Board {
     mutating func pileBlock(at index: Int,from block: Block) {
         blocks[index].pile += block.pile
         print("pile: \(blocks[index].pile)")
+        
+        points += 1
+    }
+    
+    
+    mutating func swapBlocks(from block: Block, to index: Int) {
+        // find block at array
+        let firstIndex = findBlockIndex(block: block)
+        
+        blocks.swapAt(firstIndex, index)
+        
+        // update indexes
+        blocks[firstIndex].index = firstIndex
+        blocks[index].index = index
+        
+        points += 1
     }
     
     // checks if block isn't being dropped on itself or on a disabled block
@@ -61,17 +105,19 @@ struct Board {
             return false
         }
     }
+
     
-    mutating func swapBlocks(from block: Block, to index: Int) {
-        // find block at array
-        let firstIndex = findBlockIndex(block: block)
-        
-        blocks.swapAt(firstIndex, index)
-        
-        // update indexes
-        blocks[firstIndex].index = firstIndex
-        blocks[index].index = index
+    func getPoints() -> Int {
+        return points
     }
+    
+
+    
+    
+    func getHighScore() -> Int {
+        return highScore
+    }
+    
     
     // NÃO DEVERIA CHECAR "VITÓRIA", DEVERIA SOMAR PONTOS
 //    func checkVictory() -> Bool {

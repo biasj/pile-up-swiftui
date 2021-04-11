@@ -12,29 +12,29 @@ class PuzzleGame: ObservableObject {
 
     var reset: Board
     
-    var points: Int = 0
-    
     init() {
         // saves for reset case
         self.board = Board()
         self.reset = Board()
-        reset = board
+        reset = board.saveCopy()
     }
     
     func newGame() {
-        board = Board()
-        reset = board
+        board.newGame()
+        reset = board.saveCopy()
     }
     
     func resetGame() {
+        let highScore = board.highScore
         board = reset
+        
+        board.highScore = highScore
     }
     
     // MARK: End
 //    func checkVictory() -> Bool {
 //        board.checkVictory()
 //    }
-    
     
     // MARK: - User intents
     func disable(at index: Int) {
@@ -50,8 +50,11 @@ class PuzzleGame: ObservableObject {
     }
     
     func endGame() {
-        
+        print("points: \(board.getPoints())")
+        board.endGame()
     }
+    
+
     
     // MARK: - Model access
     func getGoals() -> [Goal] {
@@ -88,5 +91,15 @@ class PuzzleGame: ObservableObject {
     
     func isNeighbor(block: Block, index: Int) -> Bool {
         return board.isNeighbor(block: block, to: index)
+    }
+    
+    
+    // MARK: Points
+    func getPoints() -> Int {
+        return board.getPoints()
+    }
+    
+    func getHighScore() -> Int {
+        return board.getHighScore()
     }
 }

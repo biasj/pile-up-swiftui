@@ -13,6 +13,7 @@ import SwiftUI
 struct BoardView: View {
     @EnvironmentObject var puzzle : PuzzleGame
     @State var blockFrames = [CGRect](repeating: .zero, count: 16)
+    var moves: Int = 0
     
     private let columns: [GridItem] = Array(repeating: .init(.fixed(160), spacing: 12), count: 4)
     
@@ -49,7 +50,6 @@ struct BoardView: View {
                 }
             }
             
-
             // block grid 4x4
             LazyVGrid(columns: columns, spacing: 15) {
                 ForEach(0..<puzzle.getBlocks().count) { i in
@@ -77,7 +77,6 @@ struct BoardView: View {
             }
             
             // if it's anything else
-           
         } else {
             return .unknown
         }
@@ -103,6 +102,7 @@ struct BoardView: View {
                     print("should be index: \(block.index)")
                 }
             }
+            
         }
         
 //        print("fim de jogo \(puzzle.checkVictory())")

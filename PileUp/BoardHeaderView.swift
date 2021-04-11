@@ -13,37 +13,61 @@ struct BoardHeaderView: View {
     var body: some View {
         // MARK: HEADER
         HStack(spacing: 25) {
-            RoundedRectangle(cornerRadius: 10)
-                .foregroundColor(.gray)
-                .frame(width: 300, height: 180, alignment: .center)
-            
-    
-            // board header (score, buttons help, new game, end game, reset game
+         
+            // Button group
             VStack(spacing: 20) {
+                // top row
                 HStack(spacing: 20) {
+                    // Best Score View
+                    VStack(spacing: 0) {
+                        Text("High Score:")
+                        Text("\(puzzle.getHighScore())")
+                        
+                    }
+                    .font(.system(size: 24, weight: .bold, design: .rounded))
+                    .frame(width: 300, height: 80, alignment: .center).foregroundColor(.white)
+                    .background(Color.gray)
+                    .cornerRadius(10)
+                    
                     Button("Help") {
                         print("HELP")
-                    }.buttonStyle(GameButtonStyle())
+                    }
                     
                     Button("New Game"){
                         puzzle.newGame()
-                    }.buttonStyle(GameButtonStyle())
-                }.scaledToFill()
+                    }
+                }
                 
+                // bottom row
                 HStack(spacing: 20) {
+        
+                    // Score View
+                    VStack(spacing: 0) {
+                        Text("Score:")
+                        Text("\(puzzle.getPoints())")
+                        
+                    }
+                    .font(.system(size: 24, weight: .bold, design: .rounded))
+                    .frame(width: 300, height: 80, alignment: .center).foregroundColor(.white)
+                    .background(Color.gray)
+                    .cornerRadius(10)
+                
+                    // butons
                     Button("Restart") {
                         puzzle.resetGame()
-                    }.buttonStyle(GameButtonStyle())
+                    }
 
-                    
                     Button("End Game"){
                         puzzle.endGame()
-                    }.buttonStyle(GameButtonStyle())
-                }.scaledToFill()
-            }
+                    }
+                }
+            }.buttonStyle(GameButtonStyle())
+            
+            
             
         }.scaledToFill()
-        .background(Color.blue)
+        .font(.system(size: 30, weight: .bold, design: .rounded))
+        
     }
 }
 
@@ -52,8 +76,7 @@ struct GameButtonStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
              .frame(width: 200, height: 80, alignment: .center)
-            
-            .background(Color(red: 0, green: 0, blue: 0.5))
+            .background(configuration.isPressed ? Color(red: 0.7, green: 0, blue: 0).opacity(0.5) : Color(red: 0.7, green: 0, blue: 0))
             .foregroundColor(.white)
             .cornerRadius(10)
     }
@@ -62,6 +85,6 @@ struct GameButtonStyle: ButtonStyle {
 
 struct BoardHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        BoardHeaderView()
+        BoardHeaderView().environmentObject(PuzzleGame())
     }
 }
