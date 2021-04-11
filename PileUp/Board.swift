@@ -32,6 +32,7 @@ struct Board {
         print("pile: \(blocks[index].pile)")
     }
     
+    // checks if block isn't being dropped on itself or on a disabled block
     func shouldDropBlock(at index: Int, block: Block) -> Bool {
         return index != block.index && !blocks[index].isDisabled
     }
@@ -44,6 +45,7 @@ struct Board {
         return blocks[index].isDisabled
     }
     
+    // checks if block can be dropped at the specified
     func isNeighbor(block: Block,to index: Int) -> Bool {
         switch block.index {
         // middle blocks
@@ -59,7 +61,6 @@ struct Board {
             return false
         }
     }
-
     
     mutating func swapBlocks(from block: Block, to index: Int) {
         // find block at array
@@ -72,29 +73,19 @@ struct Board {
         blocks[index].index = index
     }
     
-    func updateIndex() {
-        
-    }
-    
-    func checkEnd() -> Bool {
-        return checkVictory()
-    }
-    
     // NÃO DEVERIA CHECAR "VITÓRIA", DEVERIA SOMAR PONTOS
-    
-    func checkVictory() -> Bool {
-        var completedBlocks = 0
-        
-        for block in blocks {
-            if !block.isDisabled && block.pile == 4 && block.color == goals[getGoalIndex(of: block.index)].blockColor {
-                completedBlocks += 1
-                // impedir de mexer bloco depois de fechar????? porque tá dando erro de index
-            }
-        }
-        
-        return completedBlocks == 4
-    }
-    
+//    func checkVictory() -> Bool {
+//        var completedBlocks = 0
+//        
+//        for block in blocks {
+//            if !block.isDisabled && block.pile == 4 && block.color == goals[getGoalIndex(of: block.index)].blockColor {
+//                completedBlocks += 1
+//                // impedir de mexer bloco depois de fechar????? porque tá dando erro de index
+//            }
+//        }
+//        
+//        return completedBlocks == 4
+//    }
     
     // MARK: - Access
     func getGoals() -> [Goal] {

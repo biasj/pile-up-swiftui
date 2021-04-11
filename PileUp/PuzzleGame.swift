@@ -12,6 +12,8 @@ class PuzzleGame: ObservableObject {
 
     var reset: Board
     
+    var points: Int = 0
+    
     init() {
         // saves for reset case
         self.board = Board()
@@ -29,9 +31,9 @@ class PuzzleGame: ObservableObject {
     }
     
     // MARK: End
-    func checkVictory() -> Bool {
-        board.checkVictory()
-    }
+//    func checkVictory() -> Bool {
+//        board.checkVictory()
+//    }
     
     
     // MARK: - User intents
@@ -45,6 +47,10 @@ class PuzzleGame: ObservableObject {
     
     func swap(from block: Block, to index: Int) {
         board.swapBlocks(from: block, to: index)
+    }
+    
+    func endGame() {
+        
     }
     
     // MARK: - Model access

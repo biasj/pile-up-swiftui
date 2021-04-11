@@ -8,76 +8,61 @@
 import SwiftUI
 
 
+
+
 struct BoardView: View {
-    
     @EnvironmentObject var puzzle : PuzzleGame
     @State var blockFrames = [CGRect](repeating: .zero, count: 16)
     
     private let columns: [GridItem] = Array(repeating: .init(.fixed(160), spacing: 12), count: 4)
     
     var body: some View {
-        VStack {
-            HStack {
-                Button(action: { puzzle.newGame() }, label: {
-                    Text("New Game")
-                })
-                
-                Button(action: { puzzle.resetGame() }, label: {
-                    Text("Restart")
-                })
+            
+        // board
+        ZStack {
+            // grid background
+            RoundedRectangle(cornerRadius: 10).frame(width: 750, height: 450, alignment: .center).foregroundColor(.gray)
+
+            // grid background (shadow and goals)
+            LazyVGrid(columns: columns, spacing: 15) {
+                ForEach(0..<puzzle.getBlocks().count) { i in
+                    ZStack {
+                        // placeholder to assure the grids are going to be the same size
+                        RoundedRectangle(cornerRadius: 10).frame(width: 164, height: 88, alignment: .center).foregroundColor(Color.clear)
+                        
+                        Image("shadow").resizable().frame(width: 150, height: 75, alignment: .center)
+                        
+                        if puzzle.shouldPlaceGoal(index: i) {
+                            let goalIndex = puzzle.getGoalIndex(index: i)
+                            GoalView(goal: puzzle.getGoals()[goalIndex])
+                        }
+                        
+                    }.overlay(
+                        // tracks where the block has been dropped
+                        GeometryReader { geo in
+                            Color.clear
+                                .onAppear {
+                                    self.blockFrames[i] = geo.frame(in: .global)
+                                }
+                        }
+                    )
+                }
             }
             
-            
-            // board
-            ZStack {
-                // grid background
-                RoundedRectangle(cornerRadius: 10).frame(width: 750, height: 450, alignment: .center).foregroundColor(.gray)
 
-                // grid background (shadow and goals)
-                LazyVGrid(columns: columns, spacing: 15) {
-                    ForEach(0..<puzzle.getBlocks().count) { i in
-                        ZStack {
-                            // placeholder to assure the grids are going to be the same size
-                            RoundedRectangle(cornerRadius: 10).frame(width: 164, height: 88, alignment: .center).foregroundColor(Color.clear)
-                            
-                            Image("shadow").resizable().frame(width: 150, height: 75, alignment: .center)
-                            
-                            if puzzle.shouldPlaceGoal(index: i) {
-                                let goalIndex = puzzle.getGoalIndex(index: i)
-                                GoalView(goal: puzzle.getGoals()[goalIndex])
-                            }
-                            
-                        }.overlay(
-                            // tracks where the block has been dropped
-                            GeometryReader { geo in
-                                Color.clear
-                                    .onAppear {
-                                        self.blockFrames[i] = geo.frame(in: .global)
-                                    }
-                            }
-                        )
-                    }
+            // block grid 4x4
+            LazyVGrid(columns: columns, spacing: 15) {
+                ForEach(0..<puzzle.getBlocks().count) { i in
+                    BlockView(block: puzzle.getBlock(of: i), onChanged: self.blockMoved, onEnded: self.blockDropped)
                 }
+            }
                 
-
-                // block grid 4x4
-                LazyVGrid(columns: columns, spacing: 15) {
-                    ForEach(0..<puzzle.getBlocks().count) { i in
-                        BlockView(block: puzzle.getBlock(of: i), onChanged: self.blockMoved, onEnded: self.blockDropped)
-                    }
-                }
-                
-            }.padding()
-        }
-        
-        
-        
-        
+        }.padding()
 
     }
     
     
-    // MARK: Gesture methods
+    // MARK: BOARD Gesture methods
     
     // shows where it's possible to drop a block
     func blockMoved(location: CGPoint, block: Block) -> DragState {
@@ -120,6 +105,20 @@ struct BoardView: View {
             }
         }
         
-        print("fim de jogo \(puzzle.checkVictory())")
+//        print("fim de jogo \(puzzle.checkVictory())")
     }
+}
+
+
+// MARK: Preview
+
+struct BoardView_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        BoardView().environmentObject(PuzzleGame())
+            .previewDisplayName("iPad Pro")
+            .previewLayout(.fixed(width: 1366, height: 1024))
+    }
+    
+    
 }

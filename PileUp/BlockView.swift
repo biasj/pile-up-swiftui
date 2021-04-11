@@ -16,14 +16,14 @@ enum DragState {
 
 public struct BlockView: View {
     var block: Block
+    let columns: [GridItem] = Array(repeating: .init(.fixed(10), spacing: 5), count: 2)
     
     @EnvironmentObject var puzzle: PuzzleGame
     
+    // drag and drop related
     @State var dragAmount = CGSize.zero
     @State var dragState = DragState.unknown
-    
-    let columns: [GridItem] = Array(repeating: .init(.fixed(10), spacing: 5), count: 2)
-    
+        
     var onChanged: ((CGPoint, Block) -> DragState)?
     var onEnded: ((CGPoint, Int, Block) -> Void)?
     

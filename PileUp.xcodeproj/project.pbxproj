@@ -16,6 +16,8 @@
 		857310E9261B291400D533E6 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857310E8261B291400D533E6 /* Board.swift */; };
 		857381E5261C75D000BBE85F /* BlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857381E4261C75D000BBE85F /* BlockView.swift */; };
 		857381E8261C780700BBE85F /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857381E7261C780700BBE85F /* BoardView.swift */; };
+		85A3C4842623481000BC3F83 /* BoardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A3C4832623481000BC3F83 /* BoardHeaderView.swift */; };
+		85A3C4872623487200BC3F83 /* PuzzleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A3C4862623487200BC3F83 /* PuzzleView.swift */; };
 		85B2AC20261FEFE0006F342E /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B2AC1F261FEFE0006F342E /* Goal.swift */; };
 		85B2AC23261FEFF9006F342E /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B2AC22261FEFF9006F342E /* Block.swift */; };
 		85B2AC26261FF3E2006F342E /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B2AC25261FF3E2006F342E /* GoalView.swift */; };
@@ -33,6 +35,8 @@
 		857310E8261B291400D533E6 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		857381E4261C75D000BBE85F /* BlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockView.swift; sourceTree = "<group>"; };
 		857381E7261C780700BBE85F /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
+		85A3C4832623481000BC3F83 /* BoardHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardHeaderView.swift; sourceTree = "<group>"; };
+		85A3C4862623487200BC3F83 /* PuzzleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleView.swift; sourceTree = "<group>"; };
 		85B2AC1F261FEFE0006F342E /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		85B2AC22261FEFF9006F342E /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		85B2AC25261FF3E2006F342E /* GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
@@ -71,6 +75,8 @@
 				851696D1261A63920009586B /* PileUpApp.swift */,
 				851696D3261A63920009586B /* ContentView.swift */,
 				857381E7261C780700BBE85F /* BoardView.swift */,
+				85A3C4862623487200BC3F83 /* PuzzleView.swift */,
+				85A3C4832623481000BC3F83 /* BoardHeaderView.swift */,
 				857381E4261C75D000BBE85F /* BlockView.swift */,
 				8560E4B0262133D60051C8D1 /* PileView.swift */,
 				856B8FB6261BE8AB0062C1B2 /* PuzzleGame.swift */,
@@ -163,12 +169,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				857310E9261B291400D533E6 /* Board.swift in Sources */,
+				85A3C4842623481000BC3F83 /* BoardHeaderView.swift in Sources */,
 				85B2AC23261FEFF9006F342E /* Block.swift in Sources */,
 				857381E5261C75D000BBE85F /* BlockView.swift in Sources */,
 				851696D4261A63920009586B /* ContentView.swift in Sources */,
 				8560E4B1262133D60051C8D1 /* PileView.swift in Sources */,
 				857381E8261C780700BBE85F /* BoardView.swift in Sources */,
 				851696D2261A63920009586B /* PileUpApp.swift in Sources */,
+				85A3C4872623487200BC3F83 /* PuzzleView.swift in Sources */,
 				856B8FB7261BE8AB0062C1B2 /* PuzzleGame.swift in Sources */,
 				85B2AC26261FF3E2006F342E /* GoalView.swift in Sources */,
 				85B2AC20261FEFE0006F342E /* Goal.swift in Sources */,
