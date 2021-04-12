@@ -13,6 +13,8 @@
 		851696D9261A63930009586B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 851696D8261A63930009586B /* Preview Assets.xcassets */; };
 		8560E4B1262133D60051C8D1 /* PileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8560E4B0262133D60051C8D1 /* PileView.swift */; };
 		8569699A2623920E001C8EFA /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856969992623920E001C8EFA /* Game.swift */; };
+		8569699D2623C422001C8EFA /* GameButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8569699C2623C422001C8EFA /* GameButtonStyle.swift */; };
+		856969A02623C44B001C8EFA /* Extension+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8569699F2623C44B001C8EFA /* Extension+Style.swift */; };
 		856B8FB7261BE8AB0062C1B2 /* PuzzleGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856B8FB6261BE8AB0062C1B2 /* PuzzleGame.swift */; };
 		857310E9261B291400D533E6 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857310E8261B291400D533E6 /* Board.swift */; };
 		857381E5261C75D000BBE85F /* BlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857381E4261C75D000BBE85F /* BlockView.swift */; };
@@ -33,6 +35,8 @@
 		851696DA261A63930009586B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8560E4B0262133D60051C8D1 /* PileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PileView.swift; sourceTree = "<group>"; };
 		856969992623920E001C8EFA /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		8569699C2623C422001C8EFA /* GameButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameButtonStyle.swift; sourceTree = "<group>"; };
+		8569699F2623C44B001C8EFA /* Extension+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Style.swift"; sourceTree = "<group>"; };
 		856B8FB6261BE8AB0062C1B2 /* PuzzleGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleGame.swift; sourceTree = "<group>"; };
 		857310E8261B291400D533E6 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		857381E4261C75D000BBE85F /* BlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockView.swift; sourceTree = "<group>"; };
@@ -79,6 +83,8 @@
 				857381E7261C780700BBE85F /* BoardView.swift */,
 				85A3C4862623487200BC3F83 /* PuzzleView.swift */,
 				85A3C4832623481000BC3F83 /* BoardHeaderView.swift */,
+				8569699F2623C44B001C8EFA /* Extension+Style.swift */,
+				8569699C2623C422001C8EFA /* GameButtonStyle.swift */,
 				857381E4261C75D000BBE85F /* BlockView.swift */,
 				8560E4B0262133D60051C8D1 /* PileView.swift */,
 				856B8FB6261BE8AB0062C1B2 /* PuzzleGame.swift */,
@@ -172,6 +178,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				857310E9261B291400D533E6 /* Board.swift in Sources */,
+				8569699D2623C422001C8EFA /* GameButtonStyle.swift in Sources */,
 				85A3C4842623481000BC3F83 /* BoardHeaderView.swift in Sources */,
 				85B2AC23261FEFF9006F342E /* Block.swift in Sources */,
 				8569699A2623920E001C8EFA /* Game.swift in Sources */,
@@ -181,6 +188,7 @@
 				857381E8261C780700BBE85F /* BoardView.swift in Sources */,
 				851696D2261A63920009586B /* PileUpApp.swift in Sources */,
 				85A3C4872623487200BC3F83 /* PuzzleView.swift in Sources */,
+				856969A02623C44B001C8EFA /* Extension+Style.swift in Sources */,
 				856B8FB7261BE8AB0062C1B2 /* PuzzleGame.swift in Sources */,
 				85B2AC26261FF3E2006F342E /* GoalView.swift in Sources */,
 				85B2AC20261FEFE0006F342E /* Goal.swift in Sources */,
