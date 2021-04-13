@@ -17,9 +17,7 @@ enum DragState {
 public struct BlockView: View {
     var block: Block
     let columns: [GridItem] = Array(repeating: .init(.fixed(10), spacing: 5), count: 2)
-    
-    @EnvironmentObject var puzzle: PuzzleGame
-    
+        
     // drag and drop related
     @State var dragAmount = CGSize.zero
     @State var dragState = DragState.unknown
@@ -39,10 +37,10 @@ public struct BlockView: View {
             RoundedRectangle(cornerRadius: 10).frame(width: 164, height: 88, alignment: .center).foregroundColor(Color.clear)
             
             // if the block isn't disabled, show image and  pile indicator
-            if(!puzzle.getBlocks()[block.index].isDisabled){
-                Image(puzzle.getBlocks()[block.index].imageName)
+            if(!block.isDisabled){
+                Image(block.imageName)
                     .resizable().frame(width: 150, height: 75, alignment: .center)
-                PileView(block: puzzle.getBlocks()[block.index])
+                PileView(block: block)
             }
         }
         .offset(dragAmount)

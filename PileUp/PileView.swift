@@ -17,20 +17,25 @@ struct PileView: View {
     var body: some View {
         
         LazyVGrid(columns: columns, spacing: 5) {
-            ForEach(0..<(puzzle.getBlocks()[block.index].pile), id: \.self) { _ in
+            ForEach(0..<(block.pile), id: \.self) { _ in
                 
                 // position grid following number of piles and colors
                 
-                switch puzzle.getBlocks()[block.index].pile {
+                switch block.pile {
                 case 1:
                     switch block.color {
+                        
                     case .red:
+                        // top left corner
                         Circle().frame(width: 10, height: 10, alignment: .center).position(x: -50, y: -20)
                     case .blue:
+                        // top right corner
                         Circle().frame(width: 10, height: 10, alignment: .center).position(x: 75, y: -20)
                     case .yellow:
+                        // bottom left corner
                         Circle().frame(width: 10, height: 10, alignment: .center).position(x: -50, y: 30)
                     case .green:
+                        // bottom right corner
                         Circle().frame(width: 10, height: 10, alignment: .center).position(x: 75, y: 30)
                     }
                     

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		850C1E7F2624E65E00959C86 /* BlockBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850C1E7E2624E65D00959C86 /* BlockBackgroundView.swift */; };
 		851696D2261A63920009586B /* PileUpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851696D1261A63920009586B /* PileUpApp.swift */; };
 		851696D4261A63920009586B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851696D3261A63920009586B /* ContentView.swift */; };
 		851696D6261A63930009586B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 851696D5261A63930009586B /* Assets.xcassets */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		850C1E7E2624E65D00959C86 /* BlockBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBackgroundView.swift; sourceTree = "<group>"; };
 		851696CE261A63920009586B /* PileUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PileUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		851696D1261A63920009586B /* PileUpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PileUpApp.swift; sourceTree = "<group>"; };
 		851696D3261A63920009586B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 				851696D1261A63920009586B /* PileUpApp.swift */,
 				851696D3261A63920009586B /* ContentView.swift */,
 				857381E7261C780700BBE85F /* BoardView.swift */,
+				850C1E7E2624E65D00959C86 /* BlockBackgroundView.swift */,
 				85A3C4862623487200BC3F83 /* PuzzleView.swift */,
 				85A3C4832623481000BC3F83 /* BoardHeaderView.swift */,
 				8569699F2623C44B001C8EFA /* Extension+Style.swift */,
@@ -187,6 +190,7 @@
 				8560E4B1262133D60051C8D1 /* PileView.swift in Sources */,
 				857381E8261C780700BBE85F /* BoardView.swift in Sources */,
 				851696D2261A63920009586B /* PileUpApp.swift in Sources */,
+				850C1E7F2624E65E00959C86 /* BlockBackgroundView.swift in Sources */,
 				85A3C4872623487200BC3F83 /* PuzzleView.swift in Sources */,
 				856969A02623C44B001C8EFA /* Extension+Style.swift in Sources */,
 				856B8FB7261BE8AB0062C1B2 /* PuzzleGame.swift in Sources */,

@@ -14,9 +14,7 @@ struct PuzzleView: View {
         VStack(spacing: 20) {
             BoardHeaderView(puzzle: _puzzle)
             BoardView(puzzle: _puzzle)
-        }
-        
-        
+        }        
     }
 }
 

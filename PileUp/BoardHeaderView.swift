@@ -20,7 +20,7 @@ struct BoardHeaderView: View {
                 HStack(spacing: 20) {
                     // Best Score View
                     VStack(spacing: 0) {
-                        Text("High Score:")
+                        Text("Low Score:")
                         Text("\(puzzle.getHighScore())")
                     }.textStyle()
     
@@ -41,6 +41,7 @@ struct BoardHeaderView: View {
                 }
                 
             }.buttonStyle(GameButtonStyle())
+            
         }.scaledToFill()
         .font(.system(size: 30, weight: .bold, design: .rounded))
         

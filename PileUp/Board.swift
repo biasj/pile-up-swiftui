@@ -33,7 +33,7 @@ struct Board {
     }
     
     func isRecord() -> Bool {
-        if highScore < points {
+        if highScore == 0 || highScore > points {
             // record breaking
             return true
         }
@@ -110,8 +110,6 @@ struct Board {
     func getPoints() -> Int {
         return points
     }
-    
-
     
     
     func getHighScore() -> Int {

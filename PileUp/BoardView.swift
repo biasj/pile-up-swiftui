@@ -7,9 +7,6 @@
 
 import SwiftUI
 
-
-
-
 struct BoardView: View {
     @EnvironmentObject var puzzle : PuzzleGame
     @State var blockFrames = [CGRect](repeating: .zero, count: 16)
@@ -22,23 +19,13 @@ struct BoardView: View {
         // board
         ZStack {
             // grid background
-            RoundedRectangle(cornerRadius: 10).frame(width: 750, height: 450, alignment: .center).foregroundColor(.gray)
+            RoundedRectangle(cornerRadius: 10).frame(width: 750, height: 450, alignment: .center).foregroundColor(Color.lightGray)
 
             // grid background (shadow and goals)
             LazyVGrid(columns: columns, spacing: 15) {
                 ForEach(0..<puzzle.getBlocks().count) { i in
-                    ZStack {
-                        // placeholder to assure the grids are going to be the same size
-                        RoundedRectangle(cornerRadius: 10).frame(width: 164, height: 88, alignment: .center).foregroundColor(Color.clear)
-                        
-                        Image("shadow").resizable().frame(width: 150, height: 75, alignment: .center)
-                        
-                        if puzzle.shouldPlaceGoal(index: i) {
-                            let goalIndex = puzzle.getGoalIndex(index: i)
-                            GoalView(goal: puzzle.getGoals()[goalIndex])
-                        }
-                        
-                    }.overlay(
+                    BlockBackgroundView(i: i)
+                    .overlay(
                         // tracks where the block has been dropped
                         GeometryReader { geo in
                             Color.clear
