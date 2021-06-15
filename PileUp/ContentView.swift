@@ -11,19 +11,10 @@ struct ContentView: View {
     
     @EnvironmentObject var puzzle: PuzzleGame
     
-    var body: some View {
-        
-        NavigationView {
-            VStack {
-                Image("redBlock")
-                Text("Pile Up!")
-                
-                NavigationLink(destination: PuzzleView(puzzle: _puzzle)){
-                    Text("play!")
-                }.padding()
-            }
-        }.navigationViewStyle(StackNavigationViewStyle())
-
+    public init() { }
+    
+    public var body: some View {
+        PuzzleView().environmentObject(puzzle)
     }
 }
 

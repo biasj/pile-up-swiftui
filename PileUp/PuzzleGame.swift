@@ -9,54 +9,125 @@ import Foundation
 
 class PuzzleGame: ObservableObject {
     @Published var board: Board = Board()
-
-    var reset: Board
+    var freshBoard: Board
+    var isPlaying: Bool = true
+    var isMovesRecordCopy = false
     
-    init() {
-        // saves for reset case
+    @Published var score: PuzzleScore = PuzzleScore(score: 0, highScore: 0)
+    
+    public init() {
         self.board = Board()
-        self.reset = Board()
-        reset = board.saveCopy()
+        self.freshBoard = Board()
+        freshBoard = board.saveCopy()
     }
     
+    // MARK: Game over
     func newGame() {
         board.newGame()
-        reset = board.saveCopy()
-    }
-    
-    func resetGame() {
-        let highScore = board.highScore
-        board = reset
-        
-        board.highScore = highScore
-    }
-    
-    // MARK: End
-//    func checkVictory() -> Bool {
-//        board.checkVictory()
-//    }
-    
-    // MARK: - User intents
-    func disable(at index: Int) {
-        board.disableBlock(at: index)
-    }
-    
-    func pile(at index: Int, from block: Block) {
-        board.pileBlock(at: index, from: block)
-    }
-    
-    func swap(from block: Block, to index: Int) {
-        board.swapBlocks(from: block, to: index)
+        // saves a copy of the board
+        freshBoard = board.saveCopy()
+        score.reset()
+        isPlaying = true
     }
     
     func endGame() {
-        print("points: \(board.getPoints())")
-        board.endGame()
+        isMovesRecordCopy = board.isMovesRecord()
+        board.updateMovesRecord()
+        updateScore()
+        print("moves: \(board.moves)")
+        print("score: \(score.getScore())")
+        isPlaying = false
     }
     
-
+    func getScore() -> Int {
+        return score.getScore()
+    }
     
-    // MARK: - Model access
+    func updateScore() {
+        let piles = board.getPilesInGoals()
+        let pilePoints = score.generatePilePoints(pile: piles)
+        let movePoints = score.generateMovesBonus(moves: board.moves)
+        score.add(points: pilePoints+movePoints)
+        checkHighScore()
+    }
+    
+    func resetGame() {
+        let movesRecord = board.movesRecord
+        board = freshBoard
+        board.movesRecord = movesRecord
+        isPlaying = true
+        score.reset()
+    }
+    
+    func isSolved() -> Bool {
+        return board.isPuzzleSolved()
+    }
+    
+    // MARK: Score related
+    func add(points: Int) {
+        score.add(points: points)
+    }
+    
+    func getHighScore() -> Int {
+        return score.getHighScore()
+    }
+    
+    func checkHighScore() {
+        score.updateHighScore()
+    }
+    
+    func isHighScore() -> Bool {
+        return score.isHighScore()
+    }
+    
+    func isMovesRecord() -> Bool {
+        return board.isMovesRecord()
+    }
+    
+    // score messages
+    func getHighScoreMessage(moves: Int) -> [String] {
+        return score.generateRecordMovesMessage(moves: moves)
+    }
+    
+    func getHighScoreMovesMessage(moves: Int) -> String {
+        return score.generateMovesMessage(moves: moves)
+    }
+    
+    func getPuzzleUnsolvedMessage() -> String {
+        return score.unsolvedMessage
+    }
+    
+    // MARK: Gesture related
+    func shouldDropBlock(at index: Int, block: Block) -> Bool {
+        return board.shouldDropBlock(at: index, block: block)
+    }
+    
+    func isBlockDisabled(at index: Int) -> Bool {
+        return board.isBlockDisabled(at: index)
+    }
+    
+    func isNeighbor(block: Block, index: Int) -> Bool {
+        return board.isNeighbor(block: block, to: index)
+    }
+    
+    // MARK: Drop gesture - Swap & Pile
+    func haveSameImages(at index: Int, block: Block) -> Bool {
+        return board.haveSameImages(at: index, block: block)
+    }
+    
+    func disableBlock(at index: Int) {
+        board.disableBlock(at: index)
+    }
+    
+    func pileBlock(at index: Int, from block: Block) {
+        board.pileBlock(at: index, from: block)
+    }
+    
+    func swapBlocks(from block: Block, to index: Int) {
+        board.swap(from: block, at: index)
+    }
+    
+    // MARK: Model Access
     func getGoals() -> [Goal] {
         return board.getGoals()
     }
@@ -69,37 +140,20 @@ class PuzzleGame: ObservableObject {
         return board.getBlock(of: index)
     }
     
-    func shouldPlaceGoal(index: Int) -> Bool {
-        return board.shouldPlaceGoal(index: index)
-    }
-    
-    func shouldDropBlock(at index: Int, block: Block) -> Bool {
-        return board.shouldDropBlock(at: index, block: block)
-    }
-    
-    func haveSameImages(at index: Int, block: Block) -> Bool {
-        return board.haveSameImages(at: index, block: block)
-    }
-    
     func getGoalIndex(index: Int) -> Int {
         return board.getGoalIndex(of: index)
     }
     
-    func isBlockDisabled(at index: Int) -> Bool{
-        return board.isDisabled(index: index)
+    func shouldPlaceGoal(index: Int) -> Bool {
+        return board.shouldPlaceGoal(index: index)
     }
     
-    func isNeighbor(block: Block, index: Int) -> Bool {
-        return board.isNeighbor(block: block, to: index)
+    func getMovesRecord() -> Int {
+        return board.getMovesRecord()
     }
     
-    
-    // MARK: Points
-    func getPoints() -> Int {
-        return board.getPoints()
+    func getMoves() -> Int {
+        return board.getMoves()
     }
     
-    func getHighScore() -> Int {
-        return board.getHighScore()
-    }
 }

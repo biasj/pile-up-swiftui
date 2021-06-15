@@ -13,18 +13,14 @@ struct PileView: View {
     @EnvironmentObject var puzzle: PuzzleGame
     
     let columns: [GridItem] = Array(repeating: .init(.fixed(10), spacing: 5), count: 2)
-        
-    var body: some View {
-        
+    
+    public var body: some View {
         LazyVGrid(columns: columns, spacing: 5) {
-            ForEach(0..<(block.pile), id: \.self) { _ in
-                
+            ForEach(0..<(puzzle.getBlock(of: block.index).pile), id: \.self) { _ in
                 // position grid following number of piles and colors
-                
-                switch block.pile {
+                switch puzzle.getBlock(of: block.index).pile {
                 case 1:
                     switch block.color {
-                        
                     case .red:
                         // top left corner
                         Circle().frame(width: 10, height: 10, alignment: .center).position(x: -50, y: -20)
@@ -50,7 +46,7 @@ struct PileView: View {
                     case .green:
                         Circle().frame(width: 10, height: 10, alignment: .center).position(x: 60, y: 30)
                     }
-                
+                    
                 case 3, 4:
                     switch block.color {
                     case .red:
@@ -65,11 +61,9 @@ struct PileView: View {
                     
                 default: Circle().frame(width: 10, height: 10, alignment: .center).position(x: -50, y: -15)
                 }
-            
-        
+                
             }.foregroundColor(.white)
-            
         }
     }
-    
+
 }

@@ -11,86 +11,64 @@ struct Board {
     var blocks: [Block] = [Block]()
     var goals: [Goal] = [Goal]()
     
-    var points: Int = 0
-    var highScore: Int = 0
-    var isBreakingRecord: Bool = false
+    // score points
+    var moves: Int = 0
+    var movesRecord: Int = 0
     
-    init() {
+    public init() {
         newBoard()
     }
     
     mutating func newBoard() {
         blocks = generateBlocks()
         goals = generateGoals()
-        
         blocks.shuffle()
         setBlockIndexes()
-    }
-    
-    mutating func newGame() {
-        newBoard()
-        points = 0
-    }
-    
-    func isRecord() -> Bool {
-        if highScore == 0 || highScore > points {
-            // record breaking
-            return true
-        }
-        return false
-    }
-    
-    mutating func endGame() {
-        if isRecord() {
-            highScore = points
-        }
     }
     
     func saveCopy() -> Board {
         return self
     }
     
-    // MARK: - Logic
-    mutating func disableBlock(at index: Int) {
-        blocks[index].isDisabled = true
+    mutating func newGame() {
+        newBoard()
+        moves = 0
     }
     
-    mutating func pileBlock(at index: Int,from block: Block) {
-        blocks[index].pile += block.pile
-        print("pile: \(blocks[index].pile)")
-        
-        points += 1
+    mutating func endGame() -> Int {
+        return moves
     }
     
-    
-    mutating func swapBlocks(from block: Block, to index: Int) {
-        // find block at array
-        let firstIndex = findBlockIndex(block: block)
-        
-        blocks.swapAt(firstIndex, index)
-        
-        // update indexes
-        blocks[firstIndex].index = firstIndex
-        blocks[index].index = index
-        
-        points += 1
+    func isPuzzleSolved() -> Bool {
+        return getPilesInGoals() == 16
     }
     
-    // checks if block isn't being dropped on itself or on a disabled block
-    func shouldDropBlock(at index: Int, block: Block) -> Bool {
-        return index != block.index && !blocks[index].isDisabled
+    // MARK: Score related
+    // returns how many blocks are piled in every goal
+    func getPilesInGoals() -> Int{
+        var pile = 0
+        for goal in goals {
+            // check if goal and block are the same color
+            if blocks[goal.index].color == goal.blockColor && !blocks[goal.index].isDisabled {
+                // counts how many blocks are piled
+                pile += blocks[goal.index].pile
+            }
+        }
+        return pile
     }
     
-    func haveSameImages(at index: Int, block: Block) -> Bool {
-        return blocks[index].imageName == block.imageName
+    func isMovesRecord() -> Bool {
+        return isPuzzleSolved() && (movesRecord == 0 || movesRecord > moves)
     }
     
-    func isDisabled(index: Int) -> Bool {
-        return blocks[index].isDisabled
+    mutating func updateMovesRecord() {
+        if isMovesRecord() {
+            movesRecord = moves
+        }
     }
     
-    // checks if block can be dropped at the specified
-    func isNeighbor(block: Block,to index: Int) -> Bool {
+    // MARK: Gesture related
+    func isNeighbor(block: Block, to index: Int) -> Bool {
         switch block.index {
         // middle blocks
         case 5, 6, 9, 10, 1, 2, 13, 14:
@@ -105,53 +83,70 @@ struct Board {
             return false
         }
     }
-
     
-    func getPoints() -> Int {
-        return points
+    func isBlockDisabled(at index: Int) -> Bool {
+        return blocks[index].isDisabled
+    }
+    
+    // MARK: Drop Gesture - swap & pile
+    func shouldDropBlock(at index: Int, block: Block) -> Bool {
+        return index != block.index && !isBlockDisabled(at: index)
+    }
+    
+    func haveSameImages(at index: Int, block: Block) -> Bool {
+        return blocks[index].imageName == block.imageName
+    }
+    
+    mutating func disableBlock(at index: Int) {
+        blocks[index].isDisabled = true
+    }
+    
+    mutating func pileBlock(at index: Int, from block: Block) {
+        blocks[index].pile += block.pile
+        moves += 1
+    }
+    
+    mutating func swap(from block: Block, at index: Int) {
+        // find block at array
+        let firstIndex = findBlockIndex(block: block)
+        
+        blocks.swapAt(firstIndex, index)
+        
+        // update indexes
+        blocks[firstIndex].index = firstIndex
+        blocks[index].index = index
+        
+        moves += 1
     }
     
     
-    func getHighScore() -> Int {
-        return highScore
-    }
-    
-    
-    // NÃO DEVERIA CHECAR "VITÓRIA", DEVERIA SOMAR PONTOS
-//    func checkVictory() -> Bool {
-//        var completedBlocks = 0
-//        
-//        for block in blocks {
-//            if !block.isDisabled && block.pile == 4 && block.color == goals[getGoalIndex(of: block.index)].blockColor {
-//                completedBlocks += 1
-//                // impedir de mexer bloco depois de fechar????? porque tá dando erro de index
-//            }
-//        }
-//        
-//        return completedBlocks == 4
-//    }
-    
-    // MARK: - Access
-    func getGoals() -> [Goal] {
-        return goals
-    }
-    
+    // MARK: Access
     func getBlocks() -> [Block] {
         return blocks
+    }
+    
+    func getGoals() -> [Goal] {
+        return goals
     }
     
     func getBlock(of index: Int) -> Block {
         return blocks[index]
     }
-
     
     func findBlockIndex(block: Block) -> Int {
-        return blocks.firstIndex(where: { $0.id == block.id } ) ?? -1
+        return blocks.firstIndex(where: { $0.id == block.id }) ?? -1
     }
-
     
     func getGoalIndex(of index: Int) -> Int {
-        return goals.firstIndex(where: { $0.index == index} ) ?? -1
+        return goals.firstIndex(where: { $0.index == index}) ?? -1
+    }
+    
+    func getMoves() -> Int {
+        return moves
+    }
+    
+    func getMovesRecord() -> Int {
+        return movesRecord
     }
     
     // MARK: initialization methods -> deveriam estar no puzzle game?
@@ -197,24 +192,20 @@ struct Board {
         
         for _ in 0..<4 {
             var index = Int.random(in: 0..<16)
-            
             // to make sure that the indexes won't repeat
             while indexes.contains(index) {
                 index = Int.random(in: 0..<16)
             }
-            
             indexes.append(index)
         }
-    
         return indexes
     }
-
+    
     mutating func setBlockIndexes() {
         for i in 0..<blocks.count {
             blocks[i].index = i
         }
     }
-    
     
     // goal view initialization
     func shouldPlaceGoal(index: Int) -> Bool {

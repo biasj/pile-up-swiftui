@@ -11,19 +11,17 @@ import SwiftUI
 extension View {
     func textStyle() -> some View {
         self
-            .font(.system(size: 24, weight: .bold, design: .rounded))
-            .frame(width: 300, height: 80, alignment: .center).foregroundColor(.pink)
-            .background(Color.lightGray)
+            .font(.system(size: 36, weight: .bold, design: .rounded))
+            .frame(width: 300, height: 180, alignment: .center)
+            .foregroundColor(.customPink)
+            .background(Color.customGray)
             .cornerRadius(10)
+    }
+    
+    func disabledButtonStyle() -> some View {
+        self
+            .frame(width: 200, height: 80, alignment: .center)
+            .allowsHitTesting(true)
     }
 }
 
-extension Color {
-    static let lightGray = Color(red: 235/255, green: 234/255, blue: 234/255)
-    static let pink = Color(red: 240/255, green: 115/255, blue: 123/255)
-}
-
-extension UIColor {
-    static let customGray = UIColor(red: 235/255, green: 234/255, blue: 234/255, alpha: 1)
-    static let pink = UIColor(red: 240/255, green: 115/255, blue: 123/255, alpha: 1)
-}
