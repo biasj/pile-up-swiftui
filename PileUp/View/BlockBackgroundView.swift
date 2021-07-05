@@ -23,9 +23,9 @@ public struct BlockBackgroundView: View {
                 .frame(width: 164, height: 88, alignment: .center)
                 .foregroundColor(Color.clear)
             
-            Image(uiImage: UIImage(named: "shadow")!)
-                .resizable()
+            RoundedRectangle(cornerRadius: 10)
                 .frame(width: 150, height: 75, alignment: .center)
+                .foregroundColor(Color.gray)
             
             if puzzle.shouldPlaceGoal(index: i) {
                 let goalIndex = puzzle.getGoalIndex(index: i)

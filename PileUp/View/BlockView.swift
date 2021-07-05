@@ -7,9 +7,6 @@
 
 import SwiftUI
 
-
-
-
 public struct BlockView: View {
     var block: Block
     
@@ -33,9 +30,9 @@ public struct BlockView: View {
             
             if !block.isDisabled {
                 ZStack {
-                    Image(uiImage: UIImage(named: "\(block.imageName)")!)
-                        .resizable()
-                        .frame(width: 150, height: 75, alignment: .center)
+                    RoundedRectangle(cornerRadius: 5)
+                        .frame(width: 150, height: 75, alignment: .center).foregroundColor(Color.init("\(block.imageName)"))
+
                     PileView(block: block)
                 }
             }
