@@ -12,8 +12,8 @@ struct Block {
     let imageName: String
     var index: Int
     var color: BlockColor
+    
     // all blocks start with 1 pile (itself) and are not disabled
-
     var pile: Int = 1
     var isDisabled: Bool = false
 }

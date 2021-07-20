@@ -48,7 +48,8 @@ struct BoardView: View {
                 
             }
             
-        }.frame(width: 750, height: 450, alignment: .center)
+        }
+        .frame(width: 750, height: 450, alignment: .center)
         .sheet(isPresented: $conclusionIsPresented) {
             ConclusionView().environmentObject(puzzle)
         }

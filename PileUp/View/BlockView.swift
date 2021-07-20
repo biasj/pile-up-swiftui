@@ -26,7 +26,8 @@ public struct BlockView: View {
     public var body: some View {
         ZStack {
             // placeholder to keep block in place
-            RoundedRectangle(cornerRadius: 10).frame(width: 164, height: 88, alignment: .center).foregroundColor(.clear)
+            RoundedRectangle(cornerRadius: 10)
+                .frame(width: 164, height: 88, alignment: .center).foregroundColor(.clear)
             
             if !block.isDisabled {
                 ZStack {

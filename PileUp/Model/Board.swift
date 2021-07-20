@@ -8,14 +8,18 @@
 import Foundation
 
 struct Board {
+    // ruim criar instancia de block e de goal aqui (cria dependência)
     var blocks: [Block] = [Block]()
     var goals: [Goal] = [Goal]()
     
     // score points
-    var moves: Int = 0
-    var movesRecord: Int = 0
+    var moves: Int
+    var movesRecord: Int
     
     public init() {
+        moves = 0
+        movesRecord = 0
+
         newBoard()
     }
     
@@ -151,7 +155,7 @@ struct Board {
     
     // MARK: initialization methods -> deveriam estar no puzzle game?
     // generates 4 blocks of each color (red, blue, yellow, green)
-    func generateBlocks() -> [Block] {
+    private func generateBlocks() -> [Block] {
         var blocks = [Block]()
         blocks += generateColor(imageName: "redBlock", blockColor: BlockColor.red, from: 0, until: 4)
         blocks += generateColor(imageName: "blueBlock", blockColor: BlockColor.blue, from: 4, until: 8)
@@ -162,7 +166,7 @@ struct Board {
     }
     
     // generates 4 blocks with the specified color
-    func generateColor(imageName: String, blockColor: BlockColor, from initial: Int, until end: Int) -> [Block] {
+    private func generateColor(imageName: String, blockColor: BlockColor, from initial: Int, until end: Int) -> [Block] {
         var blocks = [Block]()
         for i in initial..<end {
             let block = Block(id: i, imageName: imageName, index: i, color: blockColor)
@@ -173,7 +177,7 @@ struct Board {
     }
     
     // generate 1 goal of each color, at with random indexes
-    func generateGoals() -> [Goal] {
+    private func generateGoals() -> [Goal] {
         var goals = [Goal]()
         let indexes:[Int] = generateRandomIndexes()
         
@@ -187,7 +191,7 @@ struct Board {
     }
     
     // generates 4 numbers from 0..<16 that don't repeat to be the indexes of the goals to be placed at the board game
-    func generateRandomIndexes() -> [Int] {
+    private func generateRandomIndexes() -> [Int] {
         var indexes = [Int]()
         
         for _ in 0..<4 {
@@ -201,7 +205,7 @@ struct Board {
         return indexes
     }
     
-    mutating func setBlockIndexes() {
+    mutating private func setBlockIndexes() {
         for i in 0..<blocks.count {
             blocks[i].index = i
         }
